@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "typecheck": "astro check",
@@ -31,6 +32,7 @@
     "@types/aos": "^3.0.7",
     "eslint": "^10.1.0",
     "eslint-plugin-astro": "^1.6.0",
+    "pagefind": "^1.4.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.9.3",
