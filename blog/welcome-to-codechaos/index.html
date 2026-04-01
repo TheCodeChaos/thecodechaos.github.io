@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Why we started this blog and what students can expect."><meta name="generator" content="Astro v6.1.2"><link rel="canonical" href="https://thecodechaos.github.io/blog/welcome-to-codechaos/"><link rel="alternate" type="application/rss+xml" title="CodeChaos RSS" href="/rss.xml"><meta property="og:type" content="website"><meta property="og:title" content="Welcome to CodeChaos Blog | CodeChaos Blog"><meta property="og:description" content="Why we started this blog and what students can expect."><meta property="og:url" content="https://thecodechaos.github.io/blog/welcome-to-codechaos/"><meta property="og:image" content="https://thecodechaos.github.io/blog/welcome-to-codechaos/og.png"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Welcome to CodeChaos Blog | CodeChaos Blog"><meta property="twitter:description" content="Why we started this blog and what students can expect."><meta property="twitter:image" content="https://thecodechaos.github.io/blog/welcome-to-codechaos/og.png"><meta name="theme-color" content="#0c1025"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/pagefind/pagefind-ui.css"><title>Welcome to CodeChaos Blog | CodeChaos Blog</title><script>
+      (() => {
+        const key = `codechaos-scroll:${window.location.pathname}`;
+        const root = document.documentElement;
+        const readSavedScroll = () => {
+          const saved = sessionStorage.getItem(key);
+          if (!saved) return null;
+          const y = Number(saved);
+          if (!Number.isFinite(y) || y <= 0) return null;
+          return y;
+        };
+
+        const initialY = readSavedScroll();
+        if (initialY !== null) {
+          root.classList.add('scroll-restoring');
+        }
+
+        const restoreScroll = () => {
+          const y = readSavedScroll();
+          if (y === null) return;
+          window.scrollTo(0, y);
+        };
+
+        if ('scrollRestoration' in history) {
+          history.scrollRestoration = 'manual';
+        }
+
+        restoreScroll();
+        window.addEventListener(
+          'load',
+          () => {
+            restoreScroll();
+            requestAnimationFrame(() => {
+              root.classList.remove('scroll-restoring');
+            });
+          },
+          { once: true }
+        );
+
+        const saveScroll = () => {
+          sessionStorage.setItem(key, String(window.scrollY));
+        };
+
+        window.addEventListener('beforeunload', saveScroll);
+        window.addEventListener('pagehide', saveScroll);
+      })();
+    </script><script>
+      (() => {
+        const key = 'codechaos-theme';
+        const stored = localStorage.getItem(key);
+        const systemDark = window.matchMedia(
+          '(prefers-color-scheme: dark)'
+        ).matches;
+        const theme = stored || (systemDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script><link rel="stylesheet" href="/_astro/SiteLayout.FzFhl7MP.css"></head> <body> <meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.j56hQv-j.js"></script> <div class="noise-overlay" aria-hidden="true"></div> <header class="site-header"> <a href="/" class="brand">CodeChaos</a> <nav id="site-nav" class="site-nav" aria-label="Primary"> <a href="/" class> Home </a><a href="/about" class> About </a><a href="/blog" class="is-active"> Blog </a><a href="/join" class> Join </a> </nav> <div class="header-controls"> <button class="search-toggle" type="button" aria-label="Open search" title="Search" data-open-search> <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"> <path d="M15.6 14.2a6.5 6.5 0 1 0-1.4 1.4l3.8 3.8a1 1 0 1 0 1.4-1.4l-3.8-3.8ZM5 10.5a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0Z"></path> </svg> <span>Search</span> </button> <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme"> <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"> <path d="M12 4a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1Zm0 13a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Zm8-6a1 1 0 0 1 0 2h-1a1 1 0 1 1 0-2h1ZM6 12a1 1 0 0 1-1 1H4a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1Zm10.95-5.536a1 1 0 0 1 1.414 1.414l-.707.707a1 1 0 0 1-1.414-1.414l.707-.707Zm-9.9 9.9a1 1 0 0 1 1.414 1.414l-.707.707a1 1 0 0 1-1.414-1.414l.707-.707Zm11.314 2.121a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 1 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414Zm-9.9-9.9a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 0 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path> </svg> <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"> <path d="M14.768 3.96a1 1 0 0 1 .529 1.257 7 7 0 1 0 8.743 8.743 1 1 0 0 1 1.257.529 1 1 0 0 1-.116.97 9 9 0 1 1-10.8-10.8 1 1 0 0 1 .387-.08Z"></path> </svg> </button> <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu" title="Toggle menu"> <span class="menu-bar"></span> <span class="menu-bar"></span> </button> </div> </header> <main class="site-main">  <section class="post-hero"> <p class="eyebrow">Blog Post</p> <h1>Welcome to CodeChaos Blog</h1> <p class="meta"> 4/1/2026 • CodeChaos Core Team </p> </section> <section class="post-body"> <article class="post-prose"> <p>CodeChaos is now documenting our process in public.</p>
+<p>This blog will cover:</p>
+<ul>
+<li>What we are building every month</li>
+<li>Engineering lessons from our events</li>
+<li>Open-source contributions from members</li>
+<li>Practical guides for new student developers</li>
+</ul>
+<p>If you are new here, start with the Join page and attend one live build session.</p> </article> </section>  </main> <div id="search-modal" class="search-modal" hidden data-pagefind-ui-src="/pagefind/pagefind-ui.js"> <button class="search-backdrop" type="button" aria-label="Close search" data-close-search></button> <section class="search-panel" role="dialog" aria-modal="true"> <div class="search-panel-head"> <p class="search-panel-title">Search CodeChaos</p> <button class="search-close" type="button" aria-label="Close search" data-close-search>
+Close
+</button> </div> <div id="search-ui" class="search-ui"></div> </section> </div> <footer class="site-footer"> <p class="footer-title">CodeChaos</p> <p class="footer-tagline">
+Open coding club for students who build in public.
+</p> <div class="footer-row" aria-label="Navigate"> <a href="/">Home</a> <a href="/about">About</a> <a href="/blog">Blog</a> <a href="/join">Join</a> </div> <div class="footer-row" aria-label="Connect"> <a href="https://github.com/TheCodeChaos" target="_blank" rel="noreferrer" title="CodeChaos on Github"> Github </a> <a href="/rss.xml">RSS</a> </div> <p class="footer-note">© 2026 CodeChaos • Build Loud, Ship Weekly</p> </footer> <script>
+      (() => {
+        const key = 'codechaos-theme';
+        const root = document.documentElement;
+        const getTheme = () => {
+          const stored = localStorage.getItem(key);
+          if (stored === 'light' || stored === 'dark') {
+            return stored;
+          }
+          return window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+        };
+
+        const applyTheme = (theme) => {
+          root.setAttribute('data-theme', theme);
+        };
+
+        const syncButtonLabel = (btn) => {
+          const current = root.getAttribute('data-theme') || 'dark';
+          if (btn) {
+            btn.setAttribute(
+              'aria-label',
+              current === 'dark'
+                ? 'Switch to light mode'
+                : 'Switch to dark mode'
+            );
+            btn.setAttribute(
+              'title',
+              current === 'dark'
+                ? 'Switch to light mode'
+                : 'Switch to dark mode'
+            );
+          }
+        };
+
+        const bindToggle = () => {
+          const btn = document.getElementById('theme-toggle');
+          if (!btn) return;
+          btn.onclick = () => {
+            const current = root.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            localStorage.setItem(key, next);
+            applyTheme(next);
+            syncButtonLabel(btn);
+          };
+          syncButtonLabel(btn);
+        };
+
+        const bindMenu = () => {
+          const btn = document.getElementById('menu-toggle');
+          const nav = document.getElementById('site-nav');
+          if (!btn || !nav) return;
+
+          const setOpen = (open) => {
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            nav.classList.toggle('is-open', open);
+          };
+
+          btn.onclick = () => {
+            const open = btn.getAttribute('aria-expanded') !== 'true';
+            setOpen(open);
+          };
+
+          nav.querySelectorAll('a').forEach((link) => {
+            link.onclick = () => {
+              if (window.matchMedia('(max-width: 760px)').matches) {
+                setOpen(false);
+              }
+            };
+          });
+
+          if (!window.matchMedia('(max-width: 760px)').matches) {
+            setOpen(false);
+          }
+        };
+
+        const bindSearch = () => {
+          const modal = document.getElementById('search-modal');
+          const uiRoot = document.getElementById('search-ui');
+          if (!modal || !uiRoot) return;
+
+          const w = window;
+
+          const setSearchOpen = (open) => {
+            modal.hidden = !open;
+            document.body.classList.toggle('search-open', open);
+
+            if (!open) return;
+
+            void initSearchUi();
+            window.setTimeout(() => {
+              const input = modal.querySelector('.pagefind-ui__search-input');
+              if (input instanceof HTMLInputElement) {
+                input.focus();
+              }
+            }, 40);
+          };
+
+          const loadPagefindUi = async () => {
+            if (w.PagefindUI) return;
+
+            const existing = document.querySelector(
+              'script[data-pagefind-ui="true"]'
+            );
+
+            if (existing) {
+              await new Promise((resolve, reject) => {
+                existing.addEventListener('load', resolve, { once: true });
+                existing.addEventListener('error', reject, { once: true });
+              });
+              return;
+            }
+
+            const src = modal.getAttribute('data-pagefind-ui-src');
+            if (!src) return;
+
+            await new Promise((resolve, reject) => {
+              const script = document.createElement('script');
+              script.src = src;
+              script.defer = true;
+              script.dataset.pagefindUi = 'true';
+              script.onload = resolve;
+              script.onerror = reject;
+              document.head.appendChild(script);
+            });
+          };
+
+          const initSearchUi = async () => {
+            if (uiRoot.getAttribute('data-pagefind-ready') === 'true') return;
+
+            uiRoot.setAttribute('data-pagefind-ready', 'loading');
+
+            try {
+              await loadPagefindUi();
+
+              if (!w.PagefindUI) {
+                throw new Error('Pagefind UI is unavailable');
+              }
+
+              uiRoot.innerHTML = '';
+
+              new w.PagefindUI({
+                element: '#search-ui',
+                showImages: false,
+                showSubResults: true,
+                resetStyles: false,
+                excerptLength: 16,
+                translations: {
+                  placeholder: 'Search posts, pages, and updates',
+                },
+              });
+
+              uiRoot.setAttribute('data-pagefind-ready', 'true');
+            } catch {
+              uiRoot.innerHTML =
+                '<p class="search-error">Search index is not available yet. Run a production build to generate Pagefind files.</p>';
+              uiRoot.setAttribute('data-pagefind-ready', 'error');
+            }
+          };
+
+          document.querySelectorAll('[data-open-search]').forEach((button) => {
+            button.onclick = () => {
+              setSearchOpen(true);
+            };
+          });
+
+          modal.querySelectorAll('[data-close-search]').forEach((button) => {
+            button.onclick = () => {
+              setSearchOpen(false);
+            };
+          });
+
+          if (!w.__codechaosSearchEscBound) {
+            w.__codechaosSearchEscBound = true;
+            document.addEventListener('keydown', (event) => {
+              if (event.key !== 'Escape') return;
+              const activeModal = document.getElementById('search-modal');
+              if (!activeModal || activeModal.hidden) return;
+              activeModal.hidden = true;
+              document.body.classList.remove('search-open');
+            });
+          }
+        };
+
+        const syncThemeOnNavigation = () => {
+          applyTheme(getTheme());
+          bindToggle();
+          bindMenu();
+          bindSearch();
+        };
+
+        syncThemeOnNavigation();
+
+        if (!window.__codechaosThemeBound) {
+          window.__codechaosThemeBound = true;
+          document.addEventListener('astro:page-load', syncThemeOnNavigation);
+          document.addEventListener('astro:after-swap', syncThemeOnNavigation);
+          document.addEventListener('astro:before-swap', () => {
+            const nav = document.getElementById('site-nav');
+            const btn = document.getElementById('menu-toggle');
+            nav?.classList.remove('is-open');
+            btn?.setAttribute('aria-expanded', 'false');
+
+            const modal = document.getElementById('search-modal');
+            if (modal) {
+              modal.hidden = true;
+            }
+            document.body.classList.remove('search-open');
+          });
+        }
+      })();
+    </script> </body> </html>
