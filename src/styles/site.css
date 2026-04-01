@@ -94,22 +94,22 @@ a {
   z-index: 0;
 }
 
-[data-theme='light'] .brand,
-[data-theme='light'] .footer-title,
-[data-theme='light'] .page-hero h1,
-[data-theme='light'] .page-strip h2,
-[data-theme='light'] .page-split h2,
-[data-theme='light'] .page-content h2,
-[data-theme='light'] .page-list h2,
-[data-theme='light'] .page-cta h2,
-[data-theme='light'] .blog-list h2,
-[data-theme='light'] .post-hero h1,
-[data-theme='light'] .landing-title,
-[data-theme='light'] .final-burst h2,
-[data-theme='light'] .blog-row h3,
-[data-theme='light'] .home-block h2,
-[data-theme='light'] .post-prose h2,
-[data-theme='light'] .post-prose h3 {
+.brand,
+.footer-title,
+.page-hero h1,
+.page-strip h2,
+.page-split h2,
+.page-content h2,
+.page-list h2,
+.page-cta h2,
+.blog-list h2,
+.post-hero h1,
+.landing-title,
+.final-burst h2,
+.blog-row h3,
+.home-block h2,
+.post-prose h2,
+.post-prose h3 {
   font-family: Manrope, 'Segoe UI', sans-serif;
   font-weight: 800;
   letter-spacing: 0.01em;
@@ -309,6 +309,7 @@ body.search-open {
   inset: 0;
   border: 0;
   background: color-mix(in srgb, var(--bg) 72%, transparent);
+  -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
   cursor: pointer;
 }

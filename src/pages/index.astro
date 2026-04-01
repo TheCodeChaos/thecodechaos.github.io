@@ -101,6 +101,19 @@ import { withBase } from '../utils/base';
       if (prefersReducedMotion) return;
 
       const hero = document.querySelector<HTMLElement>('#landing-cyber');
+      const finalBurst = document.querySelector<HTMLElement>('#final-burst');
+      const revealTargets = Array.from(
+        document.querySelectorAll<HTMLElement>('.reveal-up')
+      );
+      const finalBurstButtons = Array.from(
+        document.querySelectorAll<HTMLElement>('.final-burst .btn')
+      );
+      const cyberBars = Array.from(
+        document.querySelectorAll<HTMLElement>('.cyber-bar')
+      );
+      const heroGrid =
+        document.querySelector<HTMLElement>('.landing-hero-grid');
+
       if (!hero) return;
 
       rafId = window.requestAnimationFrame(() => {
@@ -158,62 +171,70 @@ import { withBase } from '../utils/base';
               );
           }
 
-          gsap.to('.cyber-bar', {
-            xPercent: 10,
-            opacity: 0.44,
-            repeat: -1,
-            yoyo: true,
-            stagger: 0.3,
-            duration: 2.8,
-            ease: 'sine.inOut',
-          });
+          if (cyberBars.length) {
+            gsap.to(cyberBars, {
+              xPercent: 10,
+              opacity: 0.44,
+              repeat: -1,
+              yoyo: true,
+              stagger: 0.3,
+              duration: 2.8,
+              ease: 'sine.inOut',
+            });
+          }
 
-          gsap.fromTo(
-            '.reveal-up',
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              stagger: 0.1,
-              duration: 0.85,
-              ease: 'power3.out',
-              immediateRender: false,
+          if (revealTargets.length && finalBurst) {
+            gsap.fromTo(
+              revealTargets,
+              { opacity: 0, y: 40 },
+              {
+                opacity: 1,
+                y: 0,
+                stagger: 0.1,
+                duration: 0.85,
+                ease: 'power3.out',
+                immediateRender: false,
+                scrollTrigger: {
+                  trigger: finalBurst,
+                  start: 'top 82%',
+                },
+              }
+            );
+          }
+
+          if (finalBurstButtons.length && finalBurst) {
+            gsap.fromTo(
+              finalBurstButtons,
+              { opacity: 0, y: 34 },
+              {
+                opacity: 1,
+                y: 0,
+                stagger: 0.08,
+                duration: 0.7,
+                ease: 'power2.out',
+                immediateRender: false,
+                scrollTrigger: {
+                  trigger: finalBurst,
+                  start: 'top 84%',
+                },
+              }
+            );
+          }
+
+          if (heroGrid) {
+            gsap.to(heroGrid, {
+              yPercent: 15,
+              scale: 0.97,
+              transformOrigin: '50% 0%',
+              ease: 'none',
               scrollTrigger: {
-                trigger: '#final-burst',
-                start: 'top 82%',
+                trigger: hero,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true,
               },
-            }
-          );
-
-          gsap.fromTo(
-            '.final-burst .btn',
-            { opacity: 0, y: 34 },
-            {
-              opacity: 1,
-              y: 0,
-              stagger: 0.08,
-              duration: 0.7,
-              ease: 'power2.out',
-              immediateRender: false,
-              scrollTrigger: {
-                trigger: '#final-burst',
-                start: 'top 84%',
-              },
-            }
-          );
-
-          gsap.to('.landing-hero-grid', {
-            yPercent: 15,
-            scale: 0.97,
-            transformOrigin: '50% 0%',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: '#landing-cyber',
-              start: 'top top',
-              end: 'bottom top',
-              scrub: true,
-            },
-          });
+            });
+          }
         }, hero);
 
         cleanupHandlers.push(() => context.revert());

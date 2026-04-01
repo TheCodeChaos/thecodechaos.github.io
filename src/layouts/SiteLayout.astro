@@ -27,6 +27,7 @@ const defaultOgPath =
 const socialImageURL = new URL(ogImage ?? defaultOgPath, SITE.website).href;
 const activeSocials = SOCIALS.filter((social) => social.active);
 const currentYear = new Date().getFullYear();
+const hasPagefindAssets = import.meta.env.PROD;
 const pagefindUiScriptSrc = withBase('/pagefind/pagefind-ui.js');
 const pagefindUiStylesHref = withBase('/pagefind/pagefind-ui.css');
 ---
@@ -63,7 +64,7 @@ const pagefindUiStylesHref = withBase('/pagefind/pagefind-ui.css');
       href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href={pagefindUiStylesHref} />
+    {hasPagefindAssets && <link rel="stylesheet" href={pagefindUiStylesHref} />}
     <title>{title}</title>
     <script is:inline>
       (() => {
@@ -138,6 +139,7 @@ const pagefindUiStylesHref = withBase('/pagefind/pagefind-ui.css');
       id="search-modal"
       class="search-modal"
       hidden
+      data-pagefind-enabled={hasPagefindAssets ? 'true' : 'false'}
       data-pagefind-ui-src={pagefindUiScriptSrc}
     >
       <button
@@ -265,6 +267,11 @@ const pagefindUiStylesHref = withBase('/pagefind/pagefind-ui.css');
           };
 
           const loadPagefindUi = async () => {
+            const enabled = modal.getAttribute('data-pagefind-enabled');
+            if (enabled !== 'true') {
+              throw new Error('Pagefind assets are disabled in dev mode');
+            }
+
             if (w.PagefindUI) return;
 
             const existing = document.querySelector(
