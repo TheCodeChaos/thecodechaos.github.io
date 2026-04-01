@@ -1,0 +1,43 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const steps = [
+	'Join our communication channel and introduce yourself',
+	'Attend one orientation build session',
+	'Pick your first track and sprint team',
+	'Ship one mini project in your first month',
+];
+---
+
+<SiteLayout title="Join CodeChaos" description="Join CodeChaos, the open coding club for students.">
+	<section class="page-hero">
+		<p class="eyebrow">Join</p>
+		<h1>START BUILDING WITH CODECHAOS</h1>
+		<p class="lead">
+			We are currently using direct onboarding links and orientation sessions.
+			Fill-in forms will return later with additional automation.
+		</p>
+	</section>
+
+	<section class="page-list">
+		<p class="eyebrow">Onboarding</p>
+		<h2>YOUR FIRST MONTH FLOW</h2>
+		<ol>
+			{
+				steps.map((step) => (
+					<li>{step}</li>
+				))
+			}
+		</ol>
+	</section>
+
+	<section class="page-content">
+		<p class="eyebrow">Actions</p>
+		<h2>USE THESE LINKS TO ENTER</h2>
+		<div class="cta-row">
+			<a class="btn btn-primary" href="https://discord.com" target="_blank" rel="noreferrer">Join Discord</a>
+			<a class="btn btn-alt" href="https://github.com" target="_blank" rel="noreferrer">Project Repositories</a>
+			<a class="btn btn-alt" href="mailto:codechaos.club@example.com">Email Coordinators</a>
+		</div>
+	</section>
+</SiteLayout>

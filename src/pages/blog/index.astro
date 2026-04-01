@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<SiteLayout title="CodeChaos Blog" description="Latest updates from CodeChaos events and projects.">
+	<section class="blog-list">
+		<p class="eyebrow">Blog</p>
+		<h2>LATEST FROM CODECHAOS</h2>
+		<div class="blog-grid">
+			{
+				posts.map((post) => (
+					<article class="blog-item">
+						<p class="meta">{post.data.pubDate.toLocaleDateString()} • {post.data.author}</p>
+						<h3>
+							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+						</h3>
+						<p>{post.data.description}</p>
+					</article>
+				))
+			}
+		</div>
+	</section>
+</SiteLayout>

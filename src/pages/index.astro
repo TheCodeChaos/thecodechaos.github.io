@@ -1,17 +1,156 @@
 ---
+import SiteLayout from '../layouts/SiteLayout.astro';
 
+const events = [
+	'Chaos Sprint: 90-minute product build with random constraints',
+	'Debug Derby: teams race to fix production-style bug sets',
+	'Open Source Night: live contributions with review support',
+	'Demo Riot: unfiltered project demos and peer critique',
+];
+
+const tracks = [
+	'Web Engineering',
+	'App Development',
+	'Competitive Programming',
+	'AI Workflows',
+	'Open Source Collaboration',
+	'System Design Basics',
+];
+
+const kpis = [
+	{ metric: '180+', label: 'Students in community' },
+	{ metric: '56', label: 'Projects shipped last year' },
+	{ metric: '14', label: 'Hackathon podium finishes' },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<SiteLayout
+	title="CodeChaos | Open Coding Club for Students"
+	description="Open coding club for students building products, competing, and shipping together."
+>
+	<section class="page-hero">
+		<p class="eyebrow">Open Coding Club for Students</p>
+		<h1>TURN CHAOS INTO SHIPPED SOFTWARE</h1>
+		<p class="lead">
+			No sleepy meetings. We prototype, test, break, fix, and demo in public.
+			Every week is hands-on. Every member builds.
+		</p>
+		<div class="cta-row">
+			<a href="/join" class="btn btn-primary">Join CodeChaos</a>
+			<a href="/events" class="btn btn-alt">Explore Events</a>
+		</div>
+		<div class="terminal-shell" aria-live="polite">
+			<div class="terminal-line">
+				<span class="prompt">member@codechaos:~$</span>
+				<span id="rotating-command">build --prototype</span>
+			</div>
+		</div>
+	</section>
+
+	<section class="page-strip" aria-label="Highlights">
+		<div class="marquee">
+			<span>BUILD FAST</span>
+			<span>DEBUG HARD</span>
+			<span>LEARN TOGETHER</span>
+			<span>SHIP PUBLICLY</span>
+			<span>BUILD FAST</span>
+			<span>DEBUG HARD</span>
+			<span>LEARN TOGETHER</span>
+			<span>SHIP PUBLICLY</span>
+		</div>
+	</section>
+
+	<section class="page-split">
+		<div>
+			<p class="eyebrow">Culture</p>
+			<h2>FAST FEEDBACK. ZERO EGO.</h2>
+		</div>
+		<div>
+			<p class="lead">
+				CodeChaos runs on clear communication, clean commits, and practical
+				mentorship. Beginners and seniors build side by side.
+			</p>
+			<p class="lead">
+				We reward consistency and useful work, not just flashy demos.
+			</p>
+		</div>
+	</section>
+
+	<section class="page-list">
+		<p class="eyebrow">Weekly Formats</p>
+		<h2>EVENTS THAT ACTUALLY LEVEL YOU UP</h2>
+		<ol>
+			{
+				events.map((event) => (
+					<li>{event}</li>
+				))
+			}
+		</ol>
+	</section>
+
+	<section class="page-content">
+		<p class="eyebrow">Skill Tracks</p>
+		<h2>MULTI-DISCIPLINE GROWTH</h2>
+		<div class="two-col-list">
+			<ul>
+				{
+					tracks.slice(0, 3).map((track) => (
+						<li>{track}</li>
+					))
+				}
+			</ul>
+			<ul>
+				{
+					tracks.slice(3).map((track) => (
+						<li>{track}</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<section class="page-content">
+		<p class="eyebrow">Impact</p>
+		<h2>MEASURABLE OUTPUT, NOT JUST ATTENDANCE</h2>
+		<div class="kpi-grid">
+			{
+				kpis.map((item) => (
+					<div class="kpi">
+						<strong>{item.metric}</strong>
+						<span>{item.label}</span>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="page-cta">
+		<p class="eyebrow">Next Step</p>
+		<h2>READY TO SHIP YOUR FIRST PROJECT?</h2>
+		<p class="lead">
+			Applications are moving to our Join page right now. For quick updates and
+			project calls, check the latest posts on our blog.
+		</p>
+		<div class="cta-row">
+			<a href="/join" class="btn btn-primary">Go To Join Page</a>
+			<a href="/blog" class="btn btn-alt">Read Club Blog</a>
+		</div>
+	</section>
+
+	<script>
+		const commands = [
+			'build --prototype',
+			'debug --trace live',
+			'ship --demo friday',
+			'contribute --open-source',
+		];
+		let index = 0;
+		const commandNode = document.getElementById('rotating-command');
+		if (commandNode) {
+			setInterval(() => {
+				index = (index + 1) % commands.length;
+				commandNode.textContent = commands[index];
+			}, 1800);
+		}
+	</script>
+</SiteLayout>

@@ -1,0 +1,123 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/site.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'CodeChaos | Open Coding Club for Students',
+	description = 'CodeChaos is an open coding club for students focused on building, collaborating, and shipping real software.',
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+
+const navLinks = [
+	{ href: '/', label: 'Home' },
+	{ href: '/about', label: 'About' },
+	{ href: '/events', label: 'Events' },
+	{ href: '/blog', label: 'Blog' },
+	{ href: '/join', label: 'Join' },
+];
+
+const isActive = (href: string) => {
+	if (href === '/') {
+		return pathname === '/';
+	}
+	if (href === '/blog') {
+		return pathname === '/blog' || pathname === '/blog/' || pathname.startsWith('/blog/');
+	}
+	return pathname === href || pathname === `${href}/`;
+};
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#0c1025" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{title}</title>
+		<script is:inline>
+			(() => {
+				const key = 'codechaos-theme';
+				const stored = localStorage.getItem(key);
+				const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				const theme = stored || (systemDark ? 'dark' : 'light');
+				document.documentElement.setAttribute('data-theme', theme);
+			})();
+		</script>
+	</head>
+	<body>
+		<ClientRouter />
+		<div class="noise-overlay" aria-hidden="true"></div>
+		<div class="ambient ambient-a" aria-hidden="true"></div>
+		<div class="ambient ambient-b" aria-hidden="true"></div>
+
+		<header class="site-header">
+			<a href="/" class="brand">CodeChaos</a>
+			<nav>
+				{
+					navLinks.map((link) => (
+						<a href={link.href} class={isActive(link.href) ? 'is-active' : ''}>
+							{link.label}
+						</a>
+					))
+				}
+			</nav>
+			<button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+				<span id="theme-toggle-label">Light</span>
+			</button>
+		</header>
+
+		<main class="site-main">
+			<slot />
+		</main>
+
+		<footer class="site-footer">
+			<p>CodeChaos</p>
+			<p id="footer-year">Open Coding Club for Students</p>
+		</footer>
+
+		<script is:inline>
+			(() => {
+				const key = 'codechaos-theme';
+				const root = document.documentElement;
+				const btn = document.getElementById('theme-toggle');
+				const label = document.getElementById('theme-toggle-label');
+
+				const sync = () => {
+					const current = root.getAttribute('data-theme') || 'dark';
+					if (label) {
+						label.textContent = current === 'dark' ? 'Light' : 'Dark';
+					}
+					if (btn) {
+						btn.setAttribute('aria-label', current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+					}
+				};
+
+				btn?.addEventListener('click', () => {
+					const current = root.getAttribute('data-theme') || 'dark';
+					const next = current === 'dark' ? 'light' : 'dark';
+					root.setAttribute('data-theme', next);
+					localStorage.setItem(key, next);
+					sync();
+				});
+
+				sync();
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,60 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const formats = [
+	'Chaos Sprint: Build a product prototype in 90 minutes',
+	'Debug Derby: Pair-based debugging with timed checkpoints',
+	'Code Review Pitstop: Pull request quality workshops',
+	'Open Source Night: First contributions to real repositories',
+	'Demo Riot: Project showcase with rapid-fire feedback',
+];
+---
+
+<SiteLayout title="CodeChaos Events" description="Weekly coding club events and practical sessions.">
+	<section class="page-hero">
+		<p class="eyebrow">Events</p>
+		<h1>WEEKLY FORMATS BUILT FOR PRACTICAL SKILL</h1>
+		<p class="lead">
+			Every event is designed to produce code output, stronger teamwork, and
+			better engineering habits.
+		</p>
+	</section>
+
+	<section class="page-list">
+		<p class="eyebrow">Formats</p>
+		<h2>WHAT RUNS EACH MONTH</h2>
+		<ol>
+			{
+				formats.map((format) => (
+					<li>{format}</li>
+				))
+			}
+		</ol>
+	</section>
+
+	<section class="page-content">
+		<p class="eyebrow">Cadence</p>
+		<h2>CONSISTENT PRACTICE CYCLE</h2>
+		<div class="two-col-list">
+			<ul>
+				<li>Monday: Challenge briefing</li>
+				<li>Wednesday: Team build lab</li>
+				<li>Friday: Demo and review</li>
+			</ul>
+			<ul>
+				<li>Monthly: Open showcase</li>
+				<li>Quarterly: Internal hackday</li>
+				<li>Semester: Project expo</li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="page-cta">
+		<p class="eyebrow">Join In</p>
+		<h2>START ATTENDING THIS WEEK</h2>
+		<div class="cta-row">
+			<a class="btn btn-primary" href="/join">Join Page</a>
+			<a class="btn btn-alt" href="/blog">Read Event Recaps</a>
+		</div>
+	</section>
+</SiteLayout>
