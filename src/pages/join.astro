@@ -1,30 +1,23 @@
 ---
+import { JOIN_CONTENT, JOIN_PAGE, JOIN_STEPS, SOCIALS } from '../config';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
-const steps = [
-	'Join our communication channel and introduce yourself',
-	'Attend one orientation build session',
-	'Pick your first track and sprint team',
-	'Ship one mini project in your first month',
-];
+const github = SOCIALS.find((social) => social.name === 'Github' && social.active);
 ---
 
-<SiteLayout title="Join CodeChaos" description="Join CodeChaos, the open coding club for students.">
+<SiteLayout title={JOIN_PAGE.title} description={JOIN_PAGE.description}>
 	<section class="page-hero">
-		<p class="eyebrow">Join</p>
-		<h1>START BUILDING WITH CODECHAOS</h1>
-		<p class="lead">
-			We are currently using direct onboarding links and orientation sessions.
-			Fill-in forms will return later with additional automation.
-		</p>
+		<p class="eyebrow">{JOIN_PAGE.eyebrow}</p>
+		<h1>{JOIN_PAGE.heading}</h1>
+		<p class="lead">{JOIN_PAGE.lead}</p>
 	</section>
 
 	<section class="page-list">
-		<p class="eyebrow">Onboarding</p>
-		<h2>YOUR FIRST MONTH FLOW</h2>
+		<p class="eyebrow">{JOIN_CONTENT.onboardingEyebrow}</p>
+		<h2>{JOIN_CONTENT.onboardingHeading}</h2>
 		<ol>
 			{
-				steps.map((step) => (
+				JOIN_STEPS.map((step) => (
 					<li>{step}</li>
 				))
 			}
@@ -32,12 +25,14 @@ const steps = [
 	</section>
 
 	<section class="page-content">
-		<p class="eyebrow">Actions</p>
-		<h2>USE THESE LINKS TO ENTER</h2>
+		<p class="eyebrow">{JOIN_CONTENT.actionsEyebrow}</p>
+		<h2>{JOIN_CONTENT.actionsHeading}</h2>
 		<div class="cta-row">
-			<a class="btn btn-primary" href="https://discord.com" target="_blank" rel="noreferrer">Join Discord</a>
-			<a class="btn btn-alt" href="https://github.com" target="_blank" rel="noreferrer">Project Repositories</a>
-			<a class="btn btn-alt" href="mailto:codechaos.club@example.com">Email Coordinators</a>
+			{github && (
+				<a class="btn btn-primary" href={github.href} target="_blank" rel="noreferrer" title={github.linkTitle}>
+					{github.name}
+				</a>
+			)}
 		</div>
 	</section>
 </SiteLayout>

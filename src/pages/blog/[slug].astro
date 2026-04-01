@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { SITE } from '../../config';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 
 export async function getStaticPaths() {
@@ -15,7 +16,7 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<SiteLayout title={`${post.data.title} | CodeChaos Blog`} description={post.data.description}>
+<SiteLayout title={`${post.data.title} | ${SITE.title} Blog`} description={post.data.description}>
 	<section class="post-hero">
 		<p class="eyebrow">Blog Post</p>
 		<h1>{post.data.title}</h1>

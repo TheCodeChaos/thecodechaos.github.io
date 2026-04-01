@@ -1,43 +1,31 @@
 ---
+import { ABOUT_CONTENT, ABOUT_PAGE, ABOUT_PRINCIPLES } from '../config';
 import SiteLayout from '../layouts/SiteLayout.astro';
-
-const principles = [
-	'Learn by building, not by watching',
-	'Review code with clarity and kindness',
-	'Ship in public to improve faster',
-	'Help beginners become contributors quickly',
-];
 ---
 
-<SiteLayout title="About CodeChaos" description="About the open coding club for students.">
+<SiteLayout title={ABOUT_PAGE.title} description={ABOUT_PAGE.description}>
 	<section class="page-hero">
-		<p class="eyebrow">About</p>
-		<h1>OPEN CODING CLUB FOR STUDENTS</h1>
-		<p class="lead">
-			CodeChaos is a student-led coding community focused on practical execution.
-			We build projects, review each other, and ship regularly.
-		</p>
+		<p class="eyebrow">{ABOUT_PAGE.eyebrow}</p>
+		<h1>{ABOUT_PAGE.heading}</h1>
+		<p class="lead">{ABOUT_PAGE.lead}</p>
 	</section>
 
 	<section class="page-split">
 		<div>
-			<p class="eyebrow">Mission</p>
-			<h2>TURN CURIOSITY INTO CAPABILITY</h2>
+			<p class="eyebrow">{ABOUT_CONTENT.missionEyebrow}</p>
+			<h2>{ABOUT_CONTENT.missionHeading}</h2>
 		</div>
 		<div>
-			<p class="lead">
-				Our mission is to make software building approachable, social, and
-				consistent for every student, regardless of current skill level.
-			</p>
+			<p class="lead">{ABOUT_CONTENT.missionLead}</p>
 		</div>
 	</section>
 
 	<section class="page-list">
-		<p class="eyebrow">Principles</p>
-		<h2>HOW WE WORK TOGETHER</h2>
+		<p class="eyebrow">{ABOUT_CONTENT.principlesEyebrow}</p>
+		<h2>{ABOUT_CONTENT.principlesHeading}</h2>
 		<ol>
 			{
-				principles.map((item) => (
+				ABOUT_PRINCIPLES.map((item) => (
 					<li>{item}</li>
 				))
 			}
@@ -45,11 +33,11 @@ const principles = [
 	</section>
 
 	<section class="page-cta">
-		<p class="eyebrow">Explore</p>
-		<h2>SEE EVENTS, TRACKS, AND CLUB WRITING</h2>
+		<p class="eyebrow">{ABOUT_CONTENT.exploreEyebrow}</p>
+		<h2>{ABOUT_CONTENT.exploreHeading}</h2>
 		<div class="cta-row">
-			<a class="btn btn-primary" href="/events">View Events</a>
-			<a class="btn btn-alt" href="/blog">Visit Blog</a>
+			<a class="btn btn-primary" href="/events">{ABOUT_CONTENT.explorePrimaryLabel}</a>
+			<a class="btn btn-alt" href="/blog">{ABOUT_CONTENT.exploreSecondaryLabel}</a>
 		</div>
 	</section>
 </SiteLayout>

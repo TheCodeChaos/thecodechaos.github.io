@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { BLOG_PAGE } from '../../config';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
@@ -7,10 +8,10 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 );
 ---
 
-<SiteLayout title="CodeChaos Blog" description="Latest updates from CodeChaos events and projects.">
+<SiteLayout title={BLOG_PAGE.title} description={BLOG_PAGE.description}>
 	<section class="blog-list">
-		<p class="eyebrow">Blog</p>
-		<h2>LATEST FROM CODECHAOS</h2>
+		<p class="eyebrow">{BLOG_PAGE.eyebrow}</p>
+		<h2>{BLOG_PAGE.heading}</h2>
 		<div class="blog-grid">
 			{
 				posts.map((post) => (
