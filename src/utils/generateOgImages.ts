@@ -2,40 +2,40 @@ import { Resvg } from '@resvg/resvg-js';
 import { SITE } from '../config';
 
 type PostLike = {
-	data: {
-		title: string;
-		description?: string;
-	};
+  data: {
+    title: string;
+    description?: string;
+  };
 };
 
 const WIDTH = 1200;
 const HEIGHT = 630;
 
 const escapeXml = (value: string) =>
-	value
-		.replaceAll('&', '&amp;')
-		.replaceAll('<', '&lt;')
-		.replaceAll('>', '&gt;')
-		.replaceAll('"', '&quot;')
-		.replaceAll("'", '&apos;');
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;');
 
 const toPngBuffer = (svg: string) => {
-	const resvg = new Resvg(svg, {
-		fitTo: {
-			mode: 'width',
-			value: WIDTH,
-		},
-	});
-	const pngData = resvg.render();
-	return new Uint8Array(pngData.asPng());
+  const resvg = new Resvg(svg, {
+    fitTo: {
+      mode: 'width',
+      value: WIDTH,
+    },
+  });
+  const pngData = resvg.render();
+  return new Uint8Array(pngData.asPng());
 };
 
 const buildSvg = (title: string, description: string, eyebrow: string) => {
-	const safeTitle = escapeXml(title);
-	const safeDescription = escapeXml(description);
-	const safeEyebrow = escapeXml(eyebrow);
+  const safeTitle = escapeXml(title);
+  const safeDescription = escapeXml(description);
+  const safeEyebrow = escapeXml(eyebrow);
 
-	return `
+  return `
 <svg width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
@@ -64,19 +64,21 @@ const buildSvg = (title: string, description: string, eyebrow: string) => {
 };
 
 export const generateOgImageForSite = async () =>
-	toPngBuffer(buildSvg(SITE.title, SITE.description, 'Open Coding Club for Students'));
+  toPngBuffer(
+    buildSvg(SITE.title, SITE.description, 'Open Coding Club for Students')
+  );
 
 export const generateOgImageForPage = async (
-	title: string,
-	description: string,
-	eyebrow = 'CodeChaos Page'
+  title: string,
+  description: string,
+  eyebrow = 'CodeChaos Page'
 ) => toPngBuffer(buildSvg(title, description, eyebrow));
 
 export const generateOgImageForPost = async (post: PostLike) =>
-	toPngBuffer(
-		buildSvg(
-			post.data.title,
-			post.data.description ?? SITE.description,
-			'CodeChaos Blog'
-		)
-	);
+  toPngBuffer(
+    buildSvg(
+      post.data.title,
+      post.data.description ?? SITE.description,
+      'CodeChaos Blog'
+    )
+  );

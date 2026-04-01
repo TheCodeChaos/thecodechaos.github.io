@@ -4,27 +4,32 @@ import { SITE } from '../../config';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
 
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: { post },
-	}));
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<SiteLayout title={`${post.data.title} | ${SITE.title} Blog`} description={post.data.description}>
-	<section class="post-hero">
-		<p class="eyebrow">Blog Post</p>
-		<h1>{post.data.title}</h1>
-		<p class="meta">{post.data.pubDate.toLocaleDateString()} • {post.data.author}</p>
-	</section>
-	<section class="post-body">
-		<article class="post-prose">
-			<Content />
-		</article>
-	</section>
+<SiteLayout
+  title={`${post.data.title} | ${SITE.title} Blog`}
+  description={post.data.description}
+>
+  <section class="post-hero">
+    <p class="eyebrow">Blog Post</p>
+    <h1>{post.data.title}</h1>
+    <p class="meta">
+      {post.data.pubDate.toLocaleDateString()} • {post.data.author}
+    </p>
+  </section>
+  <section class="post-body">
+    <article class="post-prose">
+      <Content />
+    </article>
+  </section>
 </SiteLayout>

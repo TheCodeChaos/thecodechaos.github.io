@@ -1,97 +1,94 @@
 ---
 import { HOME_LABELS, HOME_PAGE, SITE } from '../config';
 import SiteLayout from '../layouts/SiteLayout.astro';
+import { withBase } from '../utils/base';
 ---
 
 <SiteLayout
-	title={`${SITE.title} | ${HOME_PAGE.eyebrow}`}
-	description={SITE.description}
+  title={`${SITE.title} | ${HOME_PAGE.eyebrow}`}
+  description={SITE.description}
 >
-	<section class="page-hero">
-		<p class="eyebrow">{HOME_PAGE.eyebrow}</p>
-		<h1>{HOME_PAGE.title}</h1>
-		<p class="lead">{HOME_PAGE.lead}</p>
-		<div class="cta-row">
-			<a href={HOME_PAGE.primaryCta.href} class="btn btn-primary">{HOME_PAGE.primaryCta.label}</a>
-			<a href={HOME_PAGE.secondaryCta.href} class="btn btn-alt">{HOME_PAGE.secondaryCta.label}</a>
-		</div>
-		<div class="terminal-shell" aria-live="polite">
-			<div class="terminal-line">
-				<span class="prompt">member@codechaos:~$</span>
-				<span id="rotating-command">{HOME_PAGE.terminalCommands[0]}</span>
-			</div>
-		</div>
-	</section>
+  <section class="page-hero">
+    <p class="eyebrow">{HOME_PAGE.eyebrow}</p>
+    <h1>{HOME_PAGE.title}</h1>
+    <p class="lead">{HOME_PAGE.lead}</p>
+    <div class="cta-row">
+      <a href={withBase(HOME_PAGE.primaryCta.href)} class="btn btn-primary"
+        >{HOME_PAGE.primaryCta.label}</a
+      >
+      <a href={withBase(HOME_PAGE.secondaryCta.href)} class="btn btn-alt"
+        >{HOME_PAGE.secondaryCta.label}</a
+      >
+    </div>
+    <div class="terminal-shell" aria-live="polite">
+      <div class="terminal-line">
+        <span class="prompt">member@codechaos:~$</span>
+        <span id="rotating-command">{HOME_PAGE.terminalCommands[0]}</span>
+      </div>
+    </div>
+  </section>
 
-	<section class="page-strip" aria-label="Highlights">
-		<div class="marquee">
-			{HOME_PAGE.marquee.map((item) => <span>{item}</span>)}
-			{HOME_PAGE.marquee.map((item) => <span>{item}</span>)}
-		</div>
-	</section>
+  <section class="page-strip" aria-label="Highlights">
+    <div class="marquee">
+      {HOME_PAGE.marquee.map((item) => <span>{item}</span>)}
+      {HOME_PAGE.marquee.map((item) => <span>{item}</span>)}
+    </div>
+  </section>
 
-	<section class="page-split">
-		<div>
-			<p class="eyebrow">{HOME_LABELS.cultureEyebrow}</p>
-			<h2>{HOME_PAGE.cultureTitle}</h2>
-		</div>
-		<div>
-			{HOME_PAGE.culturePoints.map((point) => <p class="lead">{point}</p>)}
-		</div>
-	</section>
+  <section class="page-split">
+    <div>
+      <p class="eyebrow">{HOME_LABELS.cultureEyebrow}</p>
+      <h2>{HOME_PAGE.cultureTitle}</h2>
+    </div>
+    <div>
+      {HOME_PAGE.culturePoints.map((point) => <p class="lead">{point}</p>)}
+    </div>
+  </section>
 
-	<section class="page-list">
-		<p class="eyebrow">{HOME_LABELS.eventsEyebrow}</p>
-		<h2>{HOME_PAGE.eventsTitle}</h2>
-		<ol>
-			{
-				HOME_PAGE.events.map((event) => (
-					<li>{event}</li>
-				))
-			}
-		</ol>
-	</section>
+  <section class="page-list">
+    <p class="eyebrow">{HOME_LABELS.eventsEyebrow}</p>
+    <h2>{HOME_PAGE.eventsTitle}</h2>
+    <ol>
+      {HOME_PAGE.events.map((event) => <li>{event}</li>)}
+    </ol>
+  </section>
 
-	<section class="page-content">
-		<p class="eyebrow">{HOME_LABELS.tracksEyebrow}</p>
-		<h2>{HOME_PAGE.tracksTitle}</h2>
-		<div class="two-col-list">
-			<ul>
-				{
-					HOME_PAGE.tracks.slice(0, 3).map((track) => (
-						<li>{track}</li>
-					))
-				}
-			</ul>
-			<ul>
-				{
-					HOME_PAGE.tracks.slice(3).map((track) => (
-						<li>{track}</li>
-					))
-				}
-			</ul>
-		</div>
-	</section>
+  <section class="page-content">
+    <p class="eyebrow">{HOME_LABELS.tracksEyebrow}</p>
+    <h2>{HOME_PAGE.tracksTitle}</h2>
+    <div class="two-col-list">
+      <ul>
+        {HOME_PAGE.tracks.slice(0, 3).map((track) => <li>{track}</li>)}
+      </ul>
+      <ul>
+        {HOME_PAGE.tracks.slice(3).map((track) => <li>{track}</li>)}
+      </ul>
+    </div>
+  </section>
 
-	<section class="page-cta">
-		<p class="eyebrow">{HOME_LABELS.nextStepEyebrow}</p>
-		<h2>{HOME_PAGE.joinTitle}</h2>
-		<p class="lead">{HOME_PAGE.joinLead}</p>
-		<div class="cta-row">
-			<a href="/join" class="btn btn-primary">{HOME_LABELS.nextPrimaryLabel}</a>
-			<a href="/blog" class="btn btn-alt">{HOME_LABELS.nextSecondaryLabel}</a>
-		</div>
-	</section>
+  <section class="page-cta">
+    <p class="eyebrow">{HOME_LABELS.nextStepEyebrow}</p>
+    <h2>{HOME_PAGE.joinTitle}</h2>
+    <p class="lead">{HOME_PAGE.joinLead}</p>
+    <div class="cta-row">
+      <a href={withBase('/join')} class="btn btn-primary"
+        >{HOME_LABELS.nextPrimaryLabel}</a
+      >
+      <a href={withBase('/blog')} class="btn btn-alt"
+        >{HOME_LABELS.nextSecondaryLabel}</a
+      >
+    </div>
+  </section>
 
-	<script define:vars={{ commands: HOME_PAGE.terminalCommands }}>
-		const commandList = commands;
-		let index = 0;
-		const commandNode = document.getElementById('rotating-command');
-		if (commandNode) {
-			setInterval(() => {
-				index = (index + 1) % commandList.length;
-				commandNode.textContent = commandList[index];
-			}, 1800);
-		}
-	</script>
+  <script is:inline define:vars={{ commands: HOME_PAGE.terminalCommands }}>
+    const commandList = commands;
+    let index = 0;
+    const commandNode = document.getElementById('rotating-command');
+    if (commandNode) {
+      setInterval(() => {
+        index = (index + 1) % commandList.length;
+        commandNode.textContent = commandList[index];
+      }, 1800);
+    }
+  </script>
 </SiteLayout>

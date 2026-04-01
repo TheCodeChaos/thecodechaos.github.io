@@ -1,43 +1,44 @@
 ---
 import { ABOUT_CONTENT, ABOUT_PAGE, ABOUT_PRINCIPLES } from '../config';
 import SiteLayout from '../layouts/SiteLayout.astro';
+import { withBase } from '../utils/base';
 ---
 
 <SiteLayout title={ABOUT_PAGE.title} description={ABOUT_PAGE.description}>
-	<section class="page-hero">
-		<p class="eyebrow">{ABOUT_PAGE.eyebrow}</p>
-		<h1>{ABOUT_PAGE.heading}</h1>
-		<p class="lead">{ABOUT_PAGE.lead}</p>
-	</section>
+  <section class="page-hero">
+    <p class="eyebrow">{ABOUT_PAGE.eyebrow}</p>
+    <h1>{ABOUT_PAGE.heading}</h1>
+    <p class="lead">{ABOUT_PAGE.lead}</p>
+  </section>
 
-	<section class="page-split">
-		<div>
-			<p class="eyebrow">{ABOUT_CONTENT.missionEyebrow}</p>
-			<h2>{ABOUT_CONTENT.missionHeading}</h2>
-		</div>
-		<div>
-			<p class="lead">{ABOUT_CONTENT.missionLead}</p>
-		</div>
-	</section>
+  <section class="page-split">
+    <div>
+      <p class="eyebrow">{ABOUT_CONTENT.missionEyebrow}</p>
+      <h2>{ABOUT_CONTENT.missionHeading}</h2>
+    </div>
+    <div>
+      <p class="lead">{ABOUT_CONTENT.missionLead}</p>
+    </div>
+  </section>
 
-	<section class="page-list">
-		<p class="eyebrow">{ABOUT_CONTENT.principlesEyebrow}</p>
-		<h2>{ABOUT_CONTENT.principlesHeading}</h2>
-		<ol>
-			{
-				ABOUT_PRINCIPLES.map((item) => (
-					<li>{item}</li>
-				))
-			}
-		</ol>
-	</section>
+  <section class="page-list">
+    <p class="eyebrow">{ABOUT_CONTENT.principlesEyebrow}</p>
+    <h2>{ABOUT_CONTENT.principlesHeading}</h2>
+    <ol>
+      {ABOUT_PRINCIPLES.map((item) => <li>{item}</li>)}
+    </ol>
+  </section>
 
-	<section class="page-cta">
-		<p class="eyebrow">{ABOUT_CONTENT.exploreEyebrow}</p>
-		<h2>{ABOUT_CONTENT.exploreHeading}</h2>
-		<div class="cta-row">
-			<a class="btn btn-primary" href="/events">{ABOUT_CONTENT.explorePrimaryLabel}</a>
-			<a class="btn btn-alt" href="/blog">{ABOUT_CONTENT.exploreSecondaryLabel}</a>
-		</div>
-	</section>
+  <section class="page-cta">
+    <p class="eyebrow">{ABOUT_CONTENT.exploreEyebrow}</p>
+    <h2>{ABOUT_CONTENT.exploreHeading}</h2>
+    <div class="cta-row">
+      <a class="btn btn-primary" href={withBase('/events')}
+        >{ABOUT_CONTENT.explorePrimaryLabel}</a
+      >
+      <a class="btn btn-alt" href={withBase('/blog')}
+        >{ABOUT_CONTENT.exploreSecondaryLabel}</a
+      >
+    </div>
+  </section>
 </SiteLayout>

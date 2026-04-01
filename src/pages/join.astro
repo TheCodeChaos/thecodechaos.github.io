@@ -2,37 +2,43 @@
 import { JOIN_CONTENT, JOIN_PAGE, JOIN_STEPS, SOCIALS } from '../config';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
-const github = SOCIALS.find((social) => social.name === 'Github' && social.active);
+const github = SOCIALS.find(
+  (social) => social.name === 'Github' && social.active
+);
 ---
 
 <SiteLayout title={JOIN_PAGE.title} description={JOIN_PAGE.description}>
-	<section class="page-hero">
-		<p class="eyebrow">{JOIN_PAGE.eyebrow}</p>
-		<h1>{JOIN_PAGE.heading}</h1>
-		<p class="lead">{JOIN_PAGE.lead}</p>
-	</section>
+  <section class="page-hero">
+    <p class="eyebrow">{JOIN_PAGE.eyebrow}</p>
+    <h1>{JOIN_PAGE.heading}</h1>
+    <p class="lead">{JOIN_PAGE.lead}</p>
+  </section>
 
-	<section class="page-list">
-		<p class="eyebrow">{JOIN_CONTENT.onboardingEyebrow}</p>
-		<h2>{JOIN_CONTENT.onboardingHeading}</h2>
-		<ol>
-			{
-				JOIN_STEPS.map((step) => (
-					<li>{step}</li>
-				))
-			}
-		</ol>
-	</section>
+  <section class="page-list">
+    <p class="eyebrow">{JOIN_CONTENT.onboardingEyebrow}</p>
+    <h2>{JOIN_CONTENT.onboardingHeading}</h2>
+    <ol>
+      {JOIN_STEPS.map((step) => <li>{step}</li>)}
+    </ol>
+  </section>
 
-	<section class="page-content">
-		<p class="eyebrow">{JOIN_CONTENT.actionsEyebrow}</p>
-		<h2>{JOIN_CONTENT.actionsHeading}</h2>
-		<div class="cta-row">
-			{github && (
-				<a class="btn btn-primary" href={github.href} target="_blank" rel="noreferrer" title={github.linkTitle}>
-					{github.name}
-				</a>
-			)}
-		</div>
-	</section>
+  <section class="page-content">
+    <p class="eyebrow">{JOIN_CONTENT.actionsEyebrow}</p>
+    <h2>{JOIN_CONTENT.actionsHeading}</h2>
+    <div class="cta-row">
+      {
+        github && (
+          <a
+            class="btn btn-primary"
+            href={github.href}
+            target="_blank"
+            rel="noreferrer"
+            title={github.linkTitle}
+          >
+            {github.name}
+          </a>
+        )
+      }
+    </div>
+  </section>
 </SiteLayout>

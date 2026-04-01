@@ -2,28 +2,31 @@
 import { getCollection } from 'astro:content';
 import { BLOG_PAGE } from '../../config';
 import SiteLayout from '../../layouts/SiteLayout.astro';
+import { withBase } from '../../utils/base';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 
 <SiteLayout title={BLOG_PAGE.title} description={BLOG_PAGE.description}>
-	<section class="blog-list">
-		<p class="eyebrow">{BLOG_PAGE.eyebrow}</p>
-		<h2>{BLOG_PAGE.heading}</h2>
-		<div class="blog-grid">
-			{
-				posts.map((post) => (
-					<article class="blog-item">
-						<p class="meta">{post.data.pubDate.toLocaleDateString()} • {post.data.author}</p>
-						<h3>
-							<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-						</h3>
-						<p>{post.data.description}</p>
-					</article>
-				))
-			}
-		</div>
-	</section>
+  <section class="blog-list">
+    <p class="eyebrow">{BLOG_PAGE.eyebrow}</p>
+    <h2>{BLOG_PAGE.heading}</h2>
+    <div class="blog-grid">
+      {
+        posts.map((post) => (
+          <article class="blog-item">
+            <p class="meta">
+              {post.data.pubDate.toLocaleDateString()} • {post.data.author}
+            </p>
+            <h3>
+              <a href={withBase(`/blog/${post.id}/`)}>{post.data.title}</a>
+            </h3>
+            <p>{post.data.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
 </SiteLayout>

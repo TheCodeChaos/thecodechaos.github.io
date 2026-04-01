@@ -9,10 +9,28 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "typecheck": "astro check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm run build"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
     "@resvg/resvg-js": "^2.6.2",
     "astro": "^6.1.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.1.0",
+    "eslint-plugin-astro": "^1.6.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.58.0"
   }
 }
