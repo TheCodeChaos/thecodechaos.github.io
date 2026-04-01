@@ -8,7 +8,7 @@ interface Props {
   pathname: string;
 }
 
-const { navLinks, site, pathname } = Astro.props;
+const { navLinks, site, pathname } = Astro.props as Props;
 
 const isActive = (href: string) => {
   if (href === '/') {

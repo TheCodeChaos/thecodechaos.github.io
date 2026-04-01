@@ -8,7 +8,7 @@ interface Props {
   year: number;
 }
 
-const { site, socials, year } = Astro.props;
+const { site, socials, year } = Astro.props as Props;
 ---
 
 <footer class="site-footer">
