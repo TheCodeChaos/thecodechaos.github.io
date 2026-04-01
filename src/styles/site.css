@@ -102,6 +102,7 @@ a {
   align-items: center;
   gap: 12px;
   padding: 14px clamp(14px, 4vw, 52px);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   background: color-mix(in srgb, var(--bg) 82%, transparent);
   border-bottom: 1px solid var(--line);
