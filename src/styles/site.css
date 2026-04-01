@@ -159,6 +159,11 @@ a {
   justify-content: center;
 }
 
+.mobile-nav-head,
+.mobile-nav-search {
+  display: none;
+}
+
 .site-nav a {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
@@ -206,6 +211,7 @@ a {
   width: fit-content;
   height: fit-content;
   padding: 8px;
+  position: relative;
   border: 1px solid var(--line);
   background: transparent;
   color: var(--ink);
@@ -213,24 +219,38 @@ a {
 }
 
 .menu-bar {
-  display: block;
+  position: absolute;
+  left: 50%;
   width: 18px;
   height: 2px;
   background: currentColor;
+  transform: translateX(-50%);
   transform-origin: center;
-  transition: transform 0.2s ease;
+  transition:
+    transform 0.22s ease,
+    top 0.22s ease;
+}
+
+.menu-bar:first-child {
+  top: 13px;
+}
+
+.menu-bar:last-child {
+  top: 21px;
 }
 
 .menu-bar + .menu-bar {
-  margin-top: 5px;
+  margin-top: 0;
 }
 
 .menu-toggle[aria-expanded='true'] .menu-bar:first-child {
-  transform: translateY(2px) rotate(6deg);
+  top: 17px;
+  transform: translateX(-50%) rotate(45deg);
 }
 
 .menu-toggle[aria-expanded='true'] .menu-bar:last-child {
-  transform: translateY(-2px) rotate(-6deg);
+  top: 17px;
+  transform: translateX(-50%) rotate(-45deg);
 }
 
 .theme-toggle {
@@ -1596,43 +1616,136 @@ h3 {
 
 @media (max-width: 680px) {
   .site-header {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
+    gap: 10px;
+    padding: 10px clamp(10px, 4vw, 18px);
+    background: color-mix(in srgb, var(--surface) 96%, var(--bg) 4%);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+
+  .brand {
+    font-size: 1.06rem;
+    letter-spacing: 0.04em;
   }
 
   .site-nav {
-    grid-column: 1 / -1;
-    width: 100%;
-    display: none;
-    padding-top: 8px;
-    justify-content: flex-start;
-    gap: 12px;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: clamp(10px, 4vw, 18px);
+    width: fit-content;
+    min-width: 182px;
+    max-width: calc(100vw - 24px);
+    display: block;
+    padding: 8px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px 14px 26px 14px;
+    box-shadow: 0 18px 42px color-mix(in srgb, #000 42%, transparent);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95) translateY(-8px);
+    transform-origin: top right;
+    transition:
+      opacity 0.22s ease,
+      transform 0.22s ease,
+      visibility 0.22s ease;
+    z-index: 90;
+  }
+
+  [data-theme='dark'] .site-nav {
+    background: #121d3d;
+    border-color: color-mix(in srgb, var(--line) 72%, #ffffff 10%);
+  }
+
+  [data-theme='light'] .site-nav {
+    background: #ffffff;
+    border-color: color-mix(in srgb, var(--line) 82%, #000000 18%);
   }
 
   .site-nav.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+  }
+
+  .mobile-nav-head {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 4px 8px;
+  }
+
+  .mobile-nav-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--muted) 78%, transparent);
+  }
+
+  .mobile-nav-search {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+    border-radius: 9px;
+    background: transparent;
+    color: color-mix(in srgb, var(--ink) 76%, transparent);
+    cursor: pointer;
+  }
+
+  .mobile-nav-search .icon {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  .site-nav a {
+    display: block;
+    margin: 1px 0;
+    padding: 10px 12px;
+    border-bottom: 0;
+    border-radius: 10px;
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .site-nav a:hover,
+  .site-nav a.is-active {
+    border-color: transparent;
+    background: color-mix(in srgb, var(--line) 46%, transparent);
+    color: var(--ink);
   }
 
   .menu-toggle {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 10px;
   }
 
   .header-controls {
     justify-self: end;
-  }
-
-  .search-toggle span {
-    display: none;
+    gap: 6px;
   }
 
   .search-toggle {
-    width: 38px;
-    justify-content: center;
-    padding: 0;
+    display: none;
   }
 
   .theme-toggle {
-    padding: 7px 9px;
+    width: 38px;
+    border-radius: 10px;
   }
 
   .cta-row {

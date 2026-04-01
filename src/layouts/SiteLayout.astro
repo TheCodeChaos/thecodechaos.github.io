@@ -231,13 +231,13 @@ const pagefindUiStylesHref = withBase('/pagefind/pagefind-ui.css');
 
           nav.querySelectorAll('a').forEach((link) => {
             link.onclick = () => {
-              if (window.matchMedia('(max-width: 760px)').matches) {
+              if (window.matchMedia('(max-width: 680px)').matches) {
                 setOpen(false);
               }
             };
           });
 
-          if (!window.matchMedia('(max-width: 760px)').matches) {
+          if (!window.matchMedia('(max-width: 680px)').matches) {
             setOpen(false);
           }
         };

@@ -28,11 +28,27 @@ const isActive = (href: string) => {
 <header class="site-header">
   <a href={withBase('/')} class="brand">{site.title}</a>
   <nav id="site-nav" class="site-nav" aria-label="Primary">
+    <div class="mobile-nav-head">
+      <span class="mobile-nav-label">Menu</span>
+      <button
+        class="mobile-nav-search"
+        type="button"
+        aria-label="Open search"
+        title="Search"
+        data-open-search
+      >
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M15.6 14.2a6.5 6.5 0 1 0-1.4 1.4l3.8 3.8a1 1 0 1 0 1.4-1.4l-3.8-3.8ZM5 10.5a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0Z"
+          ></path>
+        </svg>
+      </button>
+    </div>
     {
       navLinks.map((link) => (
         <a
           href={withBase(link.href)}
-          class={isActive(link.href) ? 'is-active' : ''}
+          class={`nav-link ${isActive(link.href) ? 'is-active' : ''}`}
         >
           {link.label}
         </a>
