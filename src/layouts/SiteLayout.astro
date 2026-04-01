@@ -1,6 +1,8 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import { NAV_LINKS, SITE, SOCIALS } from '../config';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import '../styles/site.css';
 import { withBase } from '../utils/base';
 
@@ -24,20 +26,7 @@ const defaultOgPath =
     : `${pathname.replace(/\/$/, '')}/og.png`;
 const socialImageURL = new URL(ogImage ?? defaultOgPath, SITE.website).href;
 const activeSocials = SOCIALS.filter((social) => social.active);
-
-const isActive = (href: string) => {
-  if (href === '/') {
-    return pathname === '/';
-  }
-  if (href === '/blog') {
-    return (
-      pathname === '/blog' ||
-      pathname === '/blog/' ||
-      pathname.startsWith('/blog/')
-    );
-  }
-  return pathname === href || pathname === `${href}/`;
-};
+const currentYear = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -75,6 +64,53 @@ const isActive = (href: string) => {
     <title>{title}</title>
     <script is:inline>
       (() => {
+        const key = `codechaos-scroll:${window.location.pathname}`;
+        const root = document.documentElement;
+        const readSavedScroll = () => {
+          const saved = sessionStorage.getItem(key);
+          if (!saved) return null;
+          const y = Number(saved);
+          if (!Number.isFinite(y) || y <= 0) return null;
+          return y;
+        };
+
+        const initialY = readSavedScroll();
+        if (initialY !== null) {
+          root.classList.add('scroll-restoring');
+        }
+
+        const restoreScroll = () => {
+          const y = readSavedScroll();
+          if (y === null) return;
+          window.scrollTo(0, y);
+        };
+
+        if ('scrollRestoration' in history) {
+          history.scrollRestoration = 'manual';
+        }
+
+        restoreScroll();
+        window.addEventListener(
+          'load',
+          () => {
+            restoreScroll();
+            requestAnimationFrame(() => {
+              root.classList.remove('scroll-restoring');
+            });
+          },
+          { once: true }
+        );
+
+        const saveScroll = () => {
+          sessionStorage.setItem(key, String(window.scrollY));
+        };
+
+        window.addEventListener('beforeunload', saveScroll);
+        window.addEventListener('pagehide', saveScroll);
+      })();
+    </script>
+    <script is:inline>
+      (() => {
         const key = 'codechaos-theme';
         const stored = localStorage.getItem(key);
         const systemDark = window.matchMedia(
@@ -88,72 +124,34 @@ const isActive = (href: string) => {
   <body>
     <ClientRouter />
     <div class="noise-overlay" aria-hidden="true"></div>
-    <div class="ambient ambient-a" aria-hidden="true"></div>
-    <div class="ambient ambient-b" aria-hidden="true"></div>
 
-    <header class="site-header">
-      <a href={withBase('/')} class="brand">{SITE.title}</a>
-      <nav>
-        {
-          NAV_LINKS.map((link) => (
-            <a
-              href={withBase(link.href)}
-              class={isActive(link.href) ? 'is-active' : ''}
-            >
-              {link.label}
-            </a>
-          ))
-        }
-      </nav>
-      {
-        SITE.lightAndDarkMode && (
-          <button
-            id="theme-toggle"
-            class="theme-toggle"
-            type="button"
-            aria-label="Toggle theme"
-            title="Toggle theme"
-          >
-            <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 4a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1Zm0 13a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Zm8-6a1 1 0 0 1 0 2h-1a1 1 0 1 1 0-2h1ZM6 12a1 1 0 0 1-1 1H4a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1Zm10.95-5.536a1 1 0 0 1 1.414 1.414l-.707.707a1 1 0 0 1-1.414-1.414l.707-.707Zm-9.9 9.9a1 1 0 0 1 1.414 1.414l-.707.707a1 1 0 0 1-1.414-1.414l.707-.707Zm11.314 2.121a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 1 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414Zm-9.9-9.9a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 0 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z" />
-            </svg>
-            <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M14.768 3.96a1 1 0 0 1 .529 1.257 7 7 0 1 0 8.743 8.743 1 1 0 0 1 1.257.529 1 1 0 0 1-.116.97 9 9 0 1 1-10.8-10.8 1 1 0 0 1 .387-.08Z" />
-            </svg>
-          </button>
-        )
-      }
-    </header>
+    <SiteHeader navLinks={NAV_LINKS} site={SITE} pathname={pathname} />
 
     <main class="site-main">
       <slot />
     </main>
 
-    <footer class="site-footer">
-      <p>{SITE.title}</p>
-      <div class="footer-links">
-        {
-          activeSocials.map((social) => (
-            <a
-              href={social.href}
-              target="_blank"
-              rel="noreferrer"
-              title={social.linkTitle}
-            >
-              {social.name}
-            </a>
-          ))
-        }
-      </div>
-    </footer>
+    <SiteFooter site={SITE} socials={activeSocials} year={currentYear} />
 
     <script is:inline>
       (() => {
         const key = 'codechaos-theme';
         const root = document.documentElement;
-        const btn = document.getElementById('theme-toggle');
+        const getTheme = () => {
+          const stored = localStorage.getItem(key);
+          if (stored === 'light' || stored === 'dark') {
+            return stored;
+          }
+          return window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+        };
 
-        const sync = () => {
+        const applyTheme = (theme) => {
+          root.setAttribute('data-theme', theme);
+        };
+
+        const syncButtonLabel = (btn) => {
           const current = root.getAttribute('data-theme') || 'dark';
           if (btn) {
             btn.setAttribute(
@@ -171,15 +169,66 @@ const isActive = (href: string) => {
           }
         };
 
-        btn?.addEventListener('click', () => {
-          const current = root.getAttribute('data-theme') || 'dark';
-          const next = current === 'dark' ? 'light' : 'dark';
-          root.setAttribute('data-theme', next);
-          localStorage.setItem(key, next);
-          sync();
-        });
+        const bindToggle = () => {
+          const btn = document.getElementById('theme-toggle');
+          if (!btn) return;
+          btn.onclick = () => {
+            const current = root.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            localStorage.setItem(key, next);
+            applyTheme(next);
+            syncButtonLabel(btn);
+          };
+          syncButtonLabel(btn);
+        };
 
-        sync();
+        const bindMenu = () => {
+          const btn = document.getElementById('menu-toggle');
+          const nav = document.getElementById('site-nav');
+          if (!btn || !nav) return;
+
+          const setOpen = (open) => {
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            nav.classList.toggle('is-open', open);
+          };
+
+          btn.onclick = () => {
+            const open = btn.getAttribute('aria-expanded') !== 'true';
+            setOpen(open);
+          };
+
+          nav.querySelectorAll('a').forEach((link) => {
+            link.onclick = () => {
+              if (window.matchMedia('(max-width: 760px)').matches) {
+                setOpen(false);
+              }
+            };
+          });
+
+          if (!window.matchMedia('(max-width: 760px)').matches) {
+            setOpen(false);
+          }
+        };
+
+        const syncThemeOnNavigation = () => {
+          applyTheme(getTheme());
+          bindToggle();
+          bindMenu();
+        };
+
+        syncThemeOnNavigation();
+
+        if (!window.__codechaosThemeBound) {
+          window.__codechaosThemeBound = true;
+          document.addEventListener('astro:page-load', syncThemeOnNavigation);
+          document.addEventListener('astro:after-swap', syncThemeOnNavigation);
+          document.addEventListener('astro:before-swap', () => {
+            const nav = document.getElementById('site-nav');
+            const btn = document.getElementById('menu-toggle');
+            nav?.classList.remove('is-open');
+            btn?.setAttribute('aria-expanded', 'false');
+          });
+        }
       })();
     </script>
   </body>

@@ -11,29 +11,42 @@ import { withBase } from '../utils/base';
     <p class="lead">{ABOUT_PAGE.lead}</p>
   </section>
 
-  <section class="page-split">
-    <div>
-      <p class="eyebrow">{ABOUT_CONTENT.missionEyebrow}</p>
-      <h2>{ABOUT_CONTENT.missionHeading}</h2>
-    </div>
-    <div>
-      <p class="lead">{ABOUT_CONTENT.missionLead}</p>
+  <section class="page-content about-mission">
+    <p class="eyebrow">{ABOUT_CONTENT.missionEyebrow}</p>
+    <h2>{ABOUT_CONTENT.missionHeading}</h2>
+    <p class="lead">{ABOUT_CONTENT.missionLead}</p>
+  </section>
+
+  <section class="page-list about-principles">
+    <p class="eyebrow">{ABOUT_CONTENT.principlesEyebrow}</p>
+    <h2>{ABOUT_CONTENT.principlesHeading}</h2>
+    <div class="principle-grid">
+      {
+        ABOUT_PRINCIPLES.map((item, index) => (
+          <article class="principle-item">
+            <p class="principle-index">0{index + 1}</p>
+            <p>{item}</p>
+          </article>
+        ))
+      }
     </div>
   </section>
 
-  <section class="page-list">
-    <p class="eyebrow">{ABOUT_CONTENT.principlesEyebrow}</p>
-    <h2>{ABOUT_CONTENT.principlesHeading}</h2>
-    <ol>
-      {ABOUT_PRINCIPLES.map((item) => <li>{item}</li>)}
-    </ol>
+  <section class="page-content about-flow">
+    <p class="eyebrow">Club Rhythm</p>
+    <h2>WEEKLY CYCLE THAT KEEPS YOU SHARP</h2>
+    <ul class="flow-line">
+      <li>Kickoff: choose a tiny problem</li>
+      <li>Midweek: pair-debug and review</li>
+      <li>Weekend: demo what you shipped</li>
+    </ul>
   </section>
 
   <section class="page-cta">
     <p class="eyebrow">{ABOUT_CONTENT.exploreEyebrow}</p>
     <h2>{ABOUT_CONTENT.exploreHeading}</h2>
     <div class="cta-row">
-      <a class="btn btn-primary" href={withBase('/events')}
+      <a class="btn btn-primary" href={withBase('/join')}
         >{ABOUT_CONTENT.explorePrimaryLabel}</a
       >
       <a class="btn btn-alt" href={withBase('/blog')}

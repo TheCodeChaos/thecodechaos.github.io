@@ -1,0 +1,44 @@
+---
+import type { Site, SocialLink } from '../types';
+import { withBase } from '../utils/base';
+
+interface Props {
+  site: Site;
+  socials: SocialLink[];
+  year: number;
+}
+
+const { site, socials, year } = Astro.props;
+---
+
+<footer class="site-footer">
+  <p class="footer-title">{site.title}</p>
+  <p class="footer-tagline">
+    Open coding club for students who build in public.
+  </p>
+
+  <div class="footer-row" aria-label="Navigate">
+    <a href={withBase('/')}>Home</a>
+    <a href={withBase('/about')}>About</a>
+    <a href={withBase('/blog')}>Blog</a>
+    <a href={withBase('/join')}>Join</a>
+  </div>
+
+  <div class="footer-row" aria-label="Connect">
+    {
+      socials.map((social) => (
+        <a
+          href={social.href}
+          target="_blank"
+          rel="noreferrer"
+          title={social.linkTitle}
+        >
+          {social.name}
+        </a>
+      ))
+    }
+    <a href={withBase('/rss.xml')}>RSS</a>
+  </div>
+
+  <p class="footer-note">© {year} {site.title} • Build Loud, Ship Weekly</p>
+</footer>

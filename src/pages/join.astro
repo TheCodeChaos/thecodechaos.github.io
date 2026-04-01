@@ -1,6 +1,7 @@
 ---
 import { JOIN_CONTENT, JOIN_PAGE, JOIN_STEPS, SOCIALS } from '../config';
 import SiteLayout from '../layouts/SiteLayout.astro';
+import { withBase } from '../utils/base';
 
 const github = SOCIALS.find(
   (social) => social.name === 'Github' && social.active
@@ -14,17 +15,28 @@ const github = SOCIALS.find(
     <p class="lead">{JOIN_PAGE.lead}</p>
   </section>
 
-  <section class="page-list">
+  <section class="page-list join-roadmap">
     <p class="eyebrow">{JOIN_CONTENT.onboardingEyebrow}</p>
     <h2>{JOIN_CONTENT.onboardingHeading}</h2>
-    <ol>
-      {JOIN_STEPS.map((step) => <li>{step}</li>)}
-    </ol>
+    <div class="join-step-grid">
+      {
+        JOIN_STEPS.map((step, index) => (
+          <article class="join-step-card">
+            <p class="join-step-index">Step {index + 1}</p>
+            <p>{step}</p>
+          </article>
+        ))
+      }
+    </div>
   </section>
 
-  <section class="page-content">
+  <section class="page-content join-actions">
     <p class="eyebrow">{JOIN_CONTENT.actionsEyebrow}</p>
     <h2>{JOIN_CONTENT.actionsHeading}</h2>
+    <p class="lead">
+      Start from the official Github profile, check pinned repos, and join the
+      next open build session.
+    </p>
     <div class="cta-row">
       {
         github && (
@@ -39,6 +51,7 @@ const github = SOCIALS.find(
           </a>
         )
       }
+      <a class="btn btn-alt" href={withBase('/about')}>See How Club Works</a>
     </div>
   </section>
 </SiteLayout>

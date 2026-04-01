@@ -1,0 +1,76 @@
+---
+import type { NavLink, Site } from '../types';
+import { withBase } from '../utils/base';
+
+interface Props {
+  navLinks: NavLink[];
+  site: Site;
+  pathname: string;
+}
+
+const { navLinks, site, pathname } = Astro.props;
+
+const isActive = (href: string) => {
+  if (href === '/') {
+    return pathname === '/';
+  }
+  if (href === '/blog') {
+    return (
+      pathname === '/blog' ||
+      pathname === '/blog/' ||
+      pathname.startsWith('/blog/')
+    );
+  }
+  return pathname === href || pathname === `${href}/`;
+};
+---
+
+<header class="site-header">
+  <a href={withBase('/')} class="brand">{site.title}</a>
+  <nav id="site-nav" class="site-nav" aria-label="Primary">
+    {
+      navLinks.map((link) => (
+        <a
+          href={withBase(link.href)}
+          class={isActive(link.href) ? 'is-active' : ''}
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <div class="header-controls">
+    {
+      site.lightAndDarkMode && (
+        <button
+          id="theme-toggle"
+          class="theme-toggle"
+          type="button"
+          aria-label="Toggle theme"
+          title="Toggle theme"
+        >
+          <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 4a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1Zm0 13a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Zm8-6a1 1 0 0 1 0 2h-1a1 1 0 1 1 0-2h1ZM6 12a1 1 0 0 1-1 1H4a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1Zm10.95-5.536a1 1 0 0 1 1.414 1.414l-.707.707a1 1 0 0 1-1.414-1.414l.707-.707Zm-9.9 9.9a1 1 0 0 1 1.414 1.414l-.707.707a1 1 0 0 1-1.414-1.414l.707-.707Zm11.314 2.121a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 1 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414Zm-9.9-9.9a1 1 0 0 1-1.414 0l-.707-.707a1 1 0 0 1 1.414-1.414l.707.707a1 1 0 0 1 0 1.414ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z" />
+          </svg>
+          <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14.768 3.96a1 1 0 0 1 .529 1.257 7 7 0 1 0 8.743 8.743 1 1 0 0 1 1.257.529 1 1 0 0 1-.116.97 9 9 0 1 1-10.8-10.8 1 1 0 0 1 .387-.08Z" />
+          </svg>
+        </button>
+      )
+    }
+
+    <button
+      id="menu-toggle"
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      aria-label="Toggle menu"
+      title="Toggle menu"
+    >
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+    </button>
+  </div>
+</header>

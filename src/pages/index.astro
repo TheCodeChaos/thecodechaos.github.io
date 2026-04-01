@@ -1,5 +1,5 @@
 ---
-import { HOME_LABELS, HOME_PAGE, SITE } from '../config';
+import { HOME_PAGE, SITE } from '../config';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import { withBase } from '../utils/base';
 ---
@@ -8,87 +8,227 @@ import { withBase } from '../utils/base';
   title={`${SITE.title} | ${HOME_PAGE.eyebrow}`}
   description={SITE.description}
 >
-  <section class="page-hero">
-    <p class="eyebrow">{HOME_PAGE.eyebrow}</p>
-    <h1>{HOME_PAGE.title}</h1>
-    <p class="lead">{HOME_PAGE.lead}</p>
-    <div class="cta-row">
-      <a href={withBase(HOME_PAGE.primaryCta.href)} class="btn btn-primary"
-        >{HOME_PAGE.primaryCta.label}</a
-      >
-      <a href={withBase(HOME_PAGE.secondaryCta.href)} class="btn btn-alt"
-        >{HOME_PAGE.secondaryCta.label}</a
-      >
+  <section
+    class="page-hero landing landing-cyber landing-cyber-single"
+    id="landing-cyber"
+  >
+    <div class="landing-fx" aria-hidden="true">
+      <span class="cyber-bar"></span>
+      <span class="cyber-bar"></span>
+      <span class="cyber-bar"></span>
+      <span class="cyber-bar"></span>
     </div>
-    <div class="terminal-shell" aria-live="polite">
-      <div class="terminal-line">
-        <span class="prompt">member@codechaos:~$</span>
-        <span id="rotating-command">{HOME_PAGE.terminalCommands[0]}</span>
+
+    <div class="landing-hero-grid landing-hero-grid-single">
+      <div class="landing-copy landing-copy-center">
+        <p class="eyebrow landing-eyebrow">Open Coding Club for Students</p>
+        <h1 class="landing-title" data-landing-title>{HOME_PAGE.title}</h1>
+        <p class="lead landing-lead">{HOME_PAGE.lead}</p>
+        <div class="cta-row landing-cta-row">
+          <a href={withBase(HOME_PAGE.primaryCta.href)} class="btn btn-primary"
+            >{HOME_PAGE.primaryCta.label}</a
+          >
+          <a href={withBase(HOME_PAGE.secondaryCta.href)} class="btn btn-alt"
+            >{HOME_PAGE.secondaryCta.label}</a
+          >
+        </div>
       </div>
     </div>
   </section>
 
   <section class="page-strip" aria-label="Highlights">
-    <div class="marquee">
-      {HOME_PAGE.marquee.map((item) => <span>{item}</span>)}
-      {HOME_PAGE.marquee.map((item) => <span>{item}</span>)}
-    </div>
-  </section>
-
-  <section class="page-split">
-    <div>
-      <p class="eyebrow">{HOME_LABELS.cultureEyebrow}</p>
-      <h2>{HOME_PAGE.cultureTitle}</h2>
-    </div>
-    <div>
-      {HOME_PAGE.culturePoints.map((point) => <p class="lead">{point}</p>)}
-    </div>
-  </section>
-
-  <section class="page-list">
-    <p class="eyebrow">{HOME_LABELS.eventsEyebrow}</p>
-    <h2>{HOME_PAGE.eventsTitle}</h2>
-    <ol>
-      {HOME_PAGE.events.map((event) => <li>{event}</li>)}
-    </ol>
-  </section>
-
-  <section class="page-content">
-    <p class="eyebrow">{HOME_LABELS.tracksEyebrow}</p>
-    <h2>{HOME_PAGE.tracksTitle}</h2>
-    <div class="two-col-list">
-      <ul>
-        {HOME_PAGE.tracks.slice(0, 3).map((track) => <li>{track}</li>)}
+    <div class="marquee-wrap">
+      <ul class="marquee-track">
+        {HOME_PAGE.marquee.map((item) => <li>{item}</li>)}
       </ul>
-      <ul>
-        {HOME_PAGE.tracks.slice(3).map((track) => <li>{track}</li>)}
+      <ul class="marquee-track" aria-hidden="true">
+        {HOME_PAGE.marquee.map((item) => <li>{item}</li>)}
       </ul>
     </div>
   </section>
 
-  <section class="page-cta">
-    <p class="eyebrow">{HOME_LABELS.nextStepEyebrow}</p>
-    <h2>{HOME_PAGE.joinTitle}</h2>
-    <p class="lead">{HOME_PAGE.joinLead}</p>
+  <section
+    class="final-burst reveal-up"
+    id="final-burst"
+    aria-label="Final Burst"
+  >
+    <p class="eyebrow">Final Burst</p>
+    <h2>ENTER THE FLOOR. BUILD LOUD. SHIP WEEKLY.</h2>
     <div class="cta-row">
-      <a href={withBase('/join')} class="btn btn-primary"
-        >{HOME_LABELS.nextPrimaryLabel}</a
-      >
-      <a href={withBase('/blog')} class="btn btn-alt"
-        >{HOME_LABELS.nextSecondaryLabel}</a
-      >
+      <a href={withBase('/join')} class="btn btn-primary">Join CodeChaos</a>
+      <a href={withBase('/blog')} class="btn btn-alt">See Latest Posts</a>
     </div>
   </section>
 
-  <script is:inline define:vars={{ commands: HOME_PAGE.terminalCommands }}>
-    const commandList = commands;
-    let index = 0;
-    const commandNode = document.getElementById('rotating-command');
-    if (commandNode) {
-      setInterval(() => {
-        index = (index + 1) % commandList.length;
-        commandNode.textContent = commandList[index];
-      }, 1800);
-    }
+  <script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    let cleanupHandlers: Array<() => void> = [];
+    let rafId = 0;
+
+    const resetHomeAnimations = () => {
+      cleanupHandlers.forEach((handler) => handler());
+      cleanupHandlers = [];
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+    };
+
+    const splitHeroTitle = () => {
+      const title = document.querySelector<HTMLElement>('[data-landing-title]');
+      if (!title || title.dataset.split === 'done') return;
+
+      const rawTitle = title.textContent?.trim();
+      if (!rawTitle) return;
+
+      const words = rawTitle.split(/\s+/g);
+      title.innerHTML = words
+        .map(
+          (word) =>
+            `<span class="landing-word-wrap"><span class="landing-word">${word}</span></span>`
+        )
+        .join(' ');
+      title.dataset.split = 'done';
+    };
+
+    const initHomeMotion = () => {
+      resetHomeAnimations();
+      if (prefersReducedMotion) return;
+
+      const hero = document.querySelector<HTMLElement>('#landing-cyber');
+      if (!hero) return;
+
+      rafId = window.requestAnimationFrame(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        splitHeroTitle();
+
+        const context = gsap.context(() => {
+          const shouldSkipIntro = window.scrollY > 28;
+
+          if (!shouldSkipIntro) {
+            const intro = gsap.timeline({
+              defaults: { ease: 'back.out(1.35)' },
+            });
+
+            intro
+              .from('.landing-eyebrow', {
+                opacity: 0,
+                y: 18,
+                duration: 0.8,
+                immediateRender: false,
+              })
+              .from(
+                '.landing-word',
+                {
+                  opacity: 0,
+                  y: 70,
+                  rotate: 5,
+                  stagger: 0.1,
+                  duration: 1,
+                  immediateRender: false,
+                },
+                '-=0.08'
+              )
+              .from(
+                '.landing-lead',
+                {
+                  opacity: 0,
+                  y: 18,
+                  duration: 0.8,
+                  immediateRender: false,
+                },
+                '-=0.2'
+              )
+              .from(
+                '.landing-cta-row .btn',
+                {
+                  opacity: 0,
+                  y: 12,
+                  rotate: 2,
+                  stagger: 0.1,
+                  duration: 0.7,
+                  immediateRender: false,
+                },
+                '-=0.2'
+              );
+          }
+
+          gsap.to('.cyber-bar', {
+            xPercent: 10,
+            opacity: 0.44,
+            repeat: -1,
+            yoyo: true,
+            stagger: 0.3,
+            duration: 2.8,
+            ease: 'sine.inOut',
+          });
+
+          gsap.fromTo(
+            '.reveal-up',
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              stagger: 0.1,
+              duration: 0.85,
+              ease: 'power3.out',
+              immediateRender: false,
+              scrollTrigger: {
+                trigger: '#final-burst',
+                start: 'top 82%',
+              },
+            }
+          );
+
+          gsap.fromTo(
+            '.final-burst .btn',
+            { opacity: 0, y: 34 },
+            {
+              opacity: 1,
+              y: 0,
+              stagger: 0.08,
+              duration: 0.7,
+              ease: 'power2.out',
+              immediateRender: false,
+              scrollTrigger: {
+                trigger: '#final-burst',
+                start: 'top 84%',
+              },
+            }
+          );
+
+          gsap.to('.landing-hero-grid', {
+            yPercent: 15,
+            scale: 0.97,
+            transformOrigin: '50% 0%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '#landing-cyber',
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true,
+            },
+          });
+        }, hero);
+
+        cleanupHandlers.push(() => context.revert());
+        cleanupHandlers.push(() =>
+          ScrollTrigger.getAll().forEach((t) => t.kill())
+        );
+      });
+    };
+
+    initHomeMotion();
+    document.addEventListener('astro:page-load', initHomeMotion);
+    document.addEventListener('astro:before-swap', () => {
+      resetHomeAnimations();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      gsap.killTweensOf('*');
+    });
   </script>
 </SiteLayout>

@@ -28,8 +28,6 @@ export type HomePageConfig = {
   marquee: string[];
   cultureTitle: string;
   culturePoints: string[];
-  eventsTitle: string;
-  events: string[];
   tracksTitle: string;
   tracks: string[];
   joinTitle: string;

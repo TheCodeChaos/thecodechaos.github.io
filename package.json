@@ -22,10 +22,13 @@
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@resvg/resvg-js": "^2.6.2",
-    "astro": "^6.1.2"
+    "aos": "^2.3.4",
+    "astro": "^6.1.2",
+    "gsap": "^3.14.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/aos": "^3.0.7",
     "eslint": "^10.1.0",
     "eslint-plugin-astro": "^1.6.0",
     "prettier": "^3.8.1",
