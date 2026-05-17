@@ -42,3 +42,7 @@ export type GenericPageConfig = {
   heading: string;
   lead: string;
 };
+
+export type MembersPageConfig = GenericPageConfig & {
+  emptyState: string;
+};

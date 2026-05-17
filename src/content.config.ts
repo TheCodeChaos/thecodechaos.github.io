@@ -17,4 +17,25 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const members = defineCollection({
+  loader: glob({
+    pattern: '**/*.{json,yaml,yml}',
+    base: './src/content/members',
+  }),
+  schema: z.object({
+    name: z.string(),
+    role: z.string(),
+    team: z.string().optional(),
+    bio: z.string().optional(),
+    skills: z.array(z.string()).default([]),
+    github: z.string().url().optional(),
+    linkedin: z.string().url().optional(),
+    website: z.string().url().optional(),
+    avatar: z.string().optional(),
+    joined: z.coerce.date().optional(),
+    order: z.number().default(100),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, members };

@@ -1587,6 +1587,177 @@ h3 {
   justify-content: center;
 }
 
+.members-hero .lead {
+  max-width: 72ch;
+}
+
+.members-summary {
+  width: min(100%, 680px);
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.members-summary span {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  padding: 8px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.members-directory {
+  padding: clamp(24px, 6vw, 68px) clamp(14px, 5vw, 60px);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+}
+
+.members-directory > * {
+  width: min(100%, var(--content-max));
+}
+
+.members-directory-head {
+  text-align: left;
+}
+
+.members-directory-head h2,
+.member-role-head h3,
+.member-card h4 {
+  font-family: Manrope, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.members-directory-head h2 {
+  margin-top: 10px;
+  font-size: clamp(1.8rem, 4.5vw, 3.3rem);
+}
+
+.member-role-group {
+  display: grid;
+  gap: 12px;
+}
+
+.member-role-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+.member-role-head h3 {
+  font-size: clamp(1.25rem, 3vw, 2rem);
+}
+
+.member-role-head .meta {
+  margin: 0;
+}
+
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.member-card {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 84%, transparent);
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+  text-align: left;
+  align-content: start;
+  min-width: 0;
+}
+
+.member-card-head {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.member-avatar {
+  width: 54px;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--accent-2) 36%, var(--line));
+  object-fit: cover;
+  background: color-mix(in srgb, var(--accent-2) 12%, var(--surface));
+}
+
+.member-avatar-fallback {
+  display: grid;
+  place-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.84rem;
+  letter-spacing: 0.06em;
+  color: var(--accent-2);
+}
+
+.member-card h4 {
+  font-size: 1.08rem;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.member-team,
+.member-bio {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.member-team {
+  margin-top: 4px;
+  font-size: 0.82rem;
+}
+
+.member-skills {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.member-skills li {
+  border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+  padding: 6px 8px;
+  font-size: 0.74rem;
+  color: var(--muted);
+  line-height: 1;
+}
+
+.member-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+.member-links a {
+  color: var(--accent-2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+}
+
+.member-links a:hover {
+  border-color: currentColor;
+}
+
 @keyframes marquee-loop {
   0% {
     transform: translateX(0);
@@ -1615,7 +1786,8 @@ h3 {
   }
 
   .about-principles .principle-grid,
-  .join-step-grid {
+  .join-step-grid,
+  .member-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1792,6 +1964,11 @@ h3 {
 
   .site-footer {
     text-align: center;
+  }
+
+  .member-role-head {
+    align-items: start;
+    flex-direction: column;
   }
 }
 

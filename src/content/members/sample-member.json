@@ -1,0 +1,11 @@
+{
+  "name": "Sample Member",
+  "role": "Member",
+  "team": "Open Source Merge Squad",
+  "bio": "Replace this file with your own details, or copy it as a starting point.",
+  "skills": ["Git", "JavaScript", "Debugging"],
+  "github": "https://github.com/TheCodeChaos",
+  "joined": "2026-01-10",
+  "order": 50,
+  "draft": true
+}

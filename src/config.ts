@@ -1,6 +1,7 @@
 import type {
   GenericPageConfig,
   HomePageConfig,
+  MembersPageConfig,
   NavLink,
   Site,
   SocialLink,
@@ -19,6 +20,7 @@ export const SITE: Site = {
 export const NAV_LINKS: NavLink[] = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
+  { href: '/members', label: 'Members' },
   { href: '/blog', label: 'Blog' },
   { href: '/join', label: 'Join' },
 ];
@@ -133,6 +135,26 @@ export const JOIN_STEPS = [
   'Attend one orientation build session',
   'Pick your first track and sprint team',
   'Ship one mini project in your first month',
+];
+
+export const MEMBERS_PAGE: MembersPageConfig = {
+  title: 'CodeChaos Members',
+  description:
+    'Meet CodeChaos members grouped by role, generated from simple JSON and YAML data files.',
+  eyebrow: 'Members',
+  heading: 'BUILDERS BEHIND CODECHAOS',
+  lead: 'This directory is generated from member data files, so contributors can add themselves with a small YAML or JSON entry.',
+  emptyState:
+    'No published members yet. Add a YAML or JSON file in src/content/members to appear here.',
+};
+
+export const MEMBER_ROLE_ORDER = [
+  'Core Team',
+  'Lead',
+  'Maintainer',
+  'Mentor',
+  'Member',
+  'Alumni',
 ];
 
 export const BLOG_PAGE = {

@@ -1,0 +1,151 @@
+---
+import { getCollection } from 'astro:content';
+import { MEMBER_ROLE_ORDER, MEMBERS_PAGE } from '../config';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const members = (await getCollection('members', ({ data }) => !data.draft)).sort(
+  (a, b) => {
+    const roleA = MEMBER_ROLE_ORDER.indexOf(a.data.role);
+    const roleB = MEMBER_ROLE_ORDER.indexOf(b.data.role);
+    const normalizedRoleA = roleA === -1 ? MEMBER_ROLE_ORDER.length : roleA;
+    const normalizedRoleB = roleB === -1 ? MEMBER_ROLE_ORDER.length : roleB;
+
+    if (normalizedRoleA !== normalizedRoleB) {
+      return normalizedRoleA - normalizedRoleB;
+    }
+
+    if (a.data.order !== b.data.order) {
+      return a.data.order - b.data.order;
+    }
+
+    return a.data.name.localeCompare(b.data.name);
+  }
+);
+
+const groupedMembers = members.reduce(
+  (groups, member) => {
+    const role = member.data.role;
+    groups[role] = groups[role] ?? [];
+    groups[role].push(member);
+    return groups;
+  },
+  {} as Record<string, typeof members>
+);
+
+const roles = Object.keys(groupedMembers).sort((a, b) => {
+  const roleA = MEMBER_ROLE_ORDER.indexOf(a);
+  const roleB = MEMBER_ROLE_ORDER.indexOf(b);
+  const normalizedRoleA = roleA === -1 ? MEMBER_ROLE_ORDER.length : roleA;
+  const normalizedRoleB = roleB === -1 ? MEMBER_ROLE_ORDER.length : roleB;
+
+  if (normalizedRoleA !== normalizedRoleB) {
+    return normalizedRoleA - normalizedRoleB;
+  }
+
+  return a.localeCompare(b);
+});
+
+const memberCountLabel = `${members.length} ${
+  members.length === 1 ? 'member' : 'members'
+}`;
+
+const roleId = (role: string) =>
+  `role-${role.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+---
+
+<SiteLayout title={MEMBERS_PAGE.title} description={MEMBERS_PAGE.description}>
+  <section class="page-hero members-hero">
+    <p class="eyebrow">{MEMBERS_PAGE.eyebrow}</p>
+    <h1>{MEMBERS_PAGE.heading}</h1>
+    <p class="lead">{MEMBERS_PAGE.lead}</p>
+    <div class="members-summary" aria-label="Member directory summary">
+      <span>{memberCountLabel}</span>
+      <span>{roles.length} {roles.length === 1 ? 'role' : 'roles'}</span>
+      <span>YAML or JSON powered</span>
+    </div>
+  </section>
+
+  <section class="members-directory" aria-labelledby="members-directory-title">
+    <div class="members-directory-head">
+      <p class="eyebrow">Directory</p>
+      <h2 id="members-directory-title">ROLE BASED MEMBERS</h2>
+    </div>
+
+    {
+      members.length === 0 ? (
+        <p class="lead">{MEMBERS_PAGE.emptyState}</p>
+      ) : (
+        roles.map((role) => (
+          <section class="member-role-group" aria-labelledby={roleId(role)}>
+            <div class="member-role-head">
+              <h3 id={roleId(role)}>{role}</h3>
+              <p class="meta">
+                {groupedMembers[role].length}{' '}
+                {groupedMembers[role].length === 1 ? 'person' : 'people'}
+              </p>
+            </div>
+
+            <div class="member-grid">
+              {groupedMembers[role].map((member) => (
+                <article class="member-card">
+                  <div class="member-card-head">
+                    {member.data.avatar ? (
+                      <img
+                        class="member-avatar"
+                        src={member.data.avatar}
+                        alt={`${member.data.name} avatar`}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div class="member-avatar member-avatar-fallback">
+                        {member.data.name
+                          .split(' ')
+                          .map((part) => part[0])
+                          .join('')
+                          .slice(0, 2)}
+                      </div>
+                    )}
+                    <div>
+                      <h4>{member.data.name}</h4>
+                      {member.data.team && (
+                        <p class="member-team">{member.data.team}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {member.data.bio && <p class="member-bio">{member.data.bio}</p>}
+
+                  {member.data.skills.length > 0 && (
+                    <ul class="member-skills" aria-label={`${member.data.name} skills`}>
+                      {member.data.skills.map((skill) => (
+                        <li>{skill}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  <div class="member-links">
+                    {member.data.github && (
+                      <a href={member.data.github} target="_blank" rel="noreferrer">
+                        GitHub
+                      </a>
+                    )}
+                    {member.data.linkedin && (
+                      <a href={member.data.linkedin} target="_blank" rel="noreferrer">
+                        LinkedIn
+                      </a>
+                    )}
+                    {member.data.website && (
+                      <a href={member.data.website} target="_blank" rel="noreferrer">
+                        Website
+                      </a>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      )
+    }
+  </section>
+</SiteLayout>
