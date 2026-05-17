@@ -3,24 +3,24 @@ import { getCollection } from 'astro:content';
 import { MEMBER_ROLE_ORDER, MEMBERS_PAGE } from '../config';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
-const members = (await getCollection('members', ({ data }) => !data.draft)).sort(
-  (a, b) => {
-    const roleA = MEMBER_ROLE_ORDER.indexOf(a.data.role);
-    const roleB = MEMBER_ROLE_ORDER.indexOf(b.data.role);
-    const normalizedRoleA = roleA === -1 ? MEMBER_ROLE_ORDER.length : roleA;
-    const normalizedRoleB = roleB === -1 ? MEMBER_ROLE_ORDER.length : roleB;
+const members = (
+  await getCollection('members', ({ data }) => !data.draft)
+).sort((a, b) => {
+  const roleA = MEMBER_ROLE_ORDER.indexOf(a.data.role);
+  const roleB = MEMBER_ROLE_ORDER.indexOf(b.data.role);
+  const normalizedRoleA = roleA === -1 ? MEMBER_ROLE_ORDER.length : roleA;
+  const normalizedRoleB = roleB === -1 ? MEMBER_ROLE_ORDER.length : roleB;
 
-    if (normalizedRoleA !== normalizedRoleB) {
-      return normalizedRoleA - normalizedRoleB;
-    }
-
-    if (a.data.order !== b.data.order) {
-      return a.data.order - b.data.order;
-    }
-
-    return a.data.name.localeCompare(b.data.name);
+  if (normalizedRoleA !== normalizedRoleB) {
+    return normalizedRoleA - normalizedRoleB;
   }
-);
+
+  if (a.data.order !== b.data.order) {
+    return a.data.order - b.data.order;
+  }
+
+  return a.data.name.localeCompare(b.data.name);
+});
 
 const groupedMembers = members.reduce(
   (groups, member) => {
@@ -89,13 +89,33 @@ const roleId = (role: string) =>
               {groupedMembers[role].map((member) => (
                 <article class="member-card">
                   <div class="member-card-head">
-                    {member.data.avatar ? (
-                      <img
-                        class="member-avatar"
-                        src={member.data.avatar}
-                        alt={`${member.data.name} avatar`}
-                        loading="lazy"
-                      />
+                    {member.data.avatar || member.data.github ? (
+                      <>
+                        <img
+                          class="member-avatar"
+                          src={
+                            member.data.avatar ||
+                            `${member.data.github?.replace(/\/$/, '')}.png`
+                          }
+                          alt={`${member.data.name} avatar`}
+                          loading="lazy"
+                          onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+                        />
+                        <div
+                          class="member-avatar member-avatar-fallback"
+                          style={
+                            member.data.avatar || member.data.github
+                              ? 'display: none;'
+                              : ''
+                          }
+                        >
+                          {member.data.name
+                            .split(' ')
+                            .map((part) => part[0])
+                            .join('')
+                            .slice(0, 2)}
+                        </div>
+                      </>
                     ) : (
                       <div class="member-avatar member-avatar-fallback">
                         {member.data.name
@@ -113,10 +133,15 @@ const roleId = (role: string) =>
                     </div>
                   </div>
 
-                  {member.data.bio && <p class="member-bio">{member.data.bio}</p>}
+                  {member.data.bio && (
+                    <p class="member-bio">{member.data.bio}</p>
+                  )}
 
                   {member.data.skills.length > 0 && (
-                    <ul class="member-skills" aria-label={`${member.data.name} skills`}>
+                    <ul
+                      class="member-skills"
+                      aria-label={`${member.data.name} skills`}
+                    >
                       {member.data.skills.map((skill) => (
                         <li>{skill}</li>
                       ))}
@@ -125,17 +150,29 @@ const roleId = (role: string) =>
 
                   <div class="member-links">
                     {member.data.github && (
-                      <a href={member.data.github} target="_blank" rel="noreferrer">
+                      <a
+                        href={member.data.github}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         GitHub
                       </a>
                     )}
                     {member.data.linkedin && (
-                      <a href={member.data.linkedin} target="_blank" rel="noreferrer">
+                      <a
+                        href={member.data.linkedin}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         LinkedIn
                       </a>
                     )}
                     {member.data.website && (
-                      <a href={member.data.website} target="_blank" rel="noreferrer">
+                      <a
+                        href={member.data.website}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         Website
                       </a>
                     )}
