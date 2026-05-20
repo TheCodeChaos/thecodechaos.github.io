@@ -140,22 +140,14 @@ export const JOIN_STEPS = [
 export const MEMBERS_PAGE: MembersPageConfig = {
   title: 'CodeChaos Members',
   description:
-    'Meet CodeChaos members grouped by role, generated from simple JSON and YAML data files.',
-  eyebrow: 'Members',
-  heading: 'BUILDERS BEHIND CODECHAOS',
-  lead: 'This directory is generated from member data files, so contributors can add themselves with a small YAML or JSON entry.',
-  emptyState:
-    'No published members yet. Add a YAML or JSON file in src/content/members to appear here.',
+    'The official directory of CodeChaos maintainers and contributors.',
+  eyebrow: 'Our Team',
+  heading: 'MEET THE TEAM',
+  lead: 'The people behind building, maintaining, and growing CodeChaos.',
+  emptyState: 'No members are currently listed.',
 };
 
-export const MEMBER_ROLE_ORDER = [
-  'Core Team',
-  'Lead',
-  'Maintainer',
-  'Mentor',
-  'Member',
-  'Alumni',
-];
+export const MEMBER_ROLE_ORDER = ['Maintainer', 'Contributor'];
 
 export const BLOG_PAGE = {
   title: 'CodeChaos Blog',

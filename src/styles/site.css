@@ -147,6 +147,9 @@ a {
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: Manrope, 'Segoe UI', sans-serif;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -1673,24 +1676,163 @@ h3 {
 .member-card {
   border: 1px solid var(--line);
   background: color-mix(in srgb, var(--surface) 84%, transparent);
-  padding: 14px;
+  padding: 32px 16px;
   display: grid;
   gap: 12px;
   text-align: left;
   align-content: start;
   min-width: 0;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
-.member-card-head {
-  display: grid;
-  grid-template-columns: 54px minmax(0, 1fr);
+.member-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 15%, transparent);
+  border-color: var(--accent);
+}
+
+.member-card-layout {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   align-items: center;
+  height: 100%;
+}
+
+.member-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.member-profile h4 {
+  margin: 0;
+}
+
+.member-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.member-avatar-wrapper {
+  flex-shrink: 0;
+}
+
+/* ── Category legend ── */
+.category-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ── Category filter bar ── */
+.category-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+  justify-content: center;
+}
+
+.category-btn {
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.category-btn:hover {
+  border-color: var(--accent);
+  color: var(--fg);
+}
+
+.category-btn.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ── Category badges on cards ── */
+.category-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 2px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.category-badge--leadership  { background: #ede9fe; color: #6d28d9; }
+.category-badge--technical    { background: #ccfbf1; color: #0f766e; }
+.category-badge--operations   { background: #fef3c7; color: #b45309; }
+.category-badge--outreach     { background: #dbeafe; color: #1d4ed8; }
+.category-badge--creative     { background: #fce7f3; color: #be185d; }
+
+.member-social-icons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.member-social-icons a {
+  color: var(--muted);
+  transition: color 0.2s;
+  display: flex;
+}
+
+.member-social-icons a:hover {
+  color: var(--accent);
+}
+
+.member-name-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.member-name-link:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
 .member-avatar {
   width: 54px;
   aspect-ratio: 1;
+  border-radius: 50%;
   border: 1px solid color-mix(in srgb, var(--accent-2) 36%, var(--line));
   object-fit: cover;
   background: color-mix(in srgb, var(--accent-2) 12%, var(--surface));

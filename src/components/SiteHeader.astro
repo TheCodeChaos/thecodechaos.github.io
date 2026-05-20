@@ -26,7 +26,26 @@ const isActive = (href: string) => {
 ---
 
 <header class="site-header">
-  <a href={withBase('/')} class="brand">{site.title}</a>
+  <a href={withBase('/')} class="brand">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="var(--accent)"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="brand-icon"
+      ><polyline points="4 17 10 11 4 5"></polyline><line
+        x1="12"
+        x2="20"
+        y1="19"
+        y2="19"></line></svg
+    >
+    <span>{site.title}</span>
+  </a>
   <nav id="site-nav" class="site-nav" aria-label="Primary">
     <div class="mobile-nav-head">
       <span class="mobile-nav-label">Menu</span>
