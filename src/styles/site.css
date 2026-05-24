@@ -1615,11 +1615,12 @@ h3 {
 }
 
 .members-directory {
-  padding: clamp(24px, 6vw, 68px) clamp(14px, 5vw, 60px);
+  padding: clamp(18px, 4vw, 44px) clamp(14px, 5vw, 60px)
+    clamp(28px, 6vw, 68px);
   border-bottom: 1px solid var(--line);
   display: grid;
   justify-items: center;
-  gap: 22px;
+  gap: 16px;
 }
 
 .members-directory > * {
@@ -1645,8 +1646,8 @@ h3 {
 
 .member-role-group {
   display: grid;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 14px;
+  margin-bottom: 22px;
 }
 
 .member-role-head {
@@ -1669,19 +1670,21 @@ h3 {
 
 .member-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: clamp(14px, 2vw, 18px);
+  align-items: stretch;
 }
 
 .member-card {
   border: 1px solid var(--line);
   background: color-mix(in srgb, var(--surface) 84%, transparent);
-  padding: 32px 16px;
+  padding: clamp(20px, 3vw, 26px);
   display: grid;
-  gap: 12px;
+  gap: 0;
   text-align: left;
-  align-content: start;
+  align-content: stretch;
   min-width: 0;
+  min-height: 220px;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -1689,48 +1692,69 @@ h3 {
 }
 
 .member-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 15%, transparent);
-  border-color: var(--accent);
+  transform: translateY(-5px);
+  box-shadow:
+    0 14px 34px color-mix(in srgb, #000 28%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent) 16%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 72%, var(--line));
 }
 
 .member-card-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 16px;
   align-items: center;
   height: 100%;
+  min-width: 0;
 }
 
 .member-profile {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  text-align: center;
 }
 
 .member-profile h4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0;
+  width: 100%;
 }
 
 .member-badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 7px;
   justify-content: center;
   margin-top: auto;
-  padding-top: 8px;
+  padding-top: 4px;
+  align-self: end;
 }
 
 .member-avatar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+}
+
+.member-avatar-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── Category legend ── */
 .category-legend {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 20px;
-  margin-bottom: 10px;
+  gap: 10px 18px;
+  margin-bottom: 2px;
   justify-content: center;
 }
 
@@ -1755,13 +1779,14 @@ h3 {
 .category-filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 28px;
+  gap: 10px;
+  margin-bottom: 10px;
   justify-content: center;
 }
 
 .category-btn {
-  padding: 5px 14px;
+  min-height: 34px;
+  padding: 6px 15px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: transparent;
@@ -1802,19 +1827,29 @@ h3 {
 
 .member-social-icons {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   justify-content: center;
-  margin-top: 8px;
+  align-items: center;
+  margin-top: 0;
 }
 
 .member-social-icons a {
   color: var(--muted);
-  transition: color 0.2s;
-  display: flex;
+  transition:
+    color 0.2s,
+    transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  border-radius: 999px;
 }
 
 .member-social-icons a:hover {
   color: var(--accent);
+  transform: translateY(-1px);
 }
 
 .member-name-link {
@@ -1830,7 +1865,7 @@ h3 {
 }
 
 .member-avatar {
-  width: 54px;
+  width: 58px;
   aspect-ratio: 1;
   border-radius: 50%;
   border: 1px solid color-mix(in srgb, var(--accent-2) 36%, var(--line));
@@ -1839,7 +1874,7 @@ h3 {
 }
 
 .member-avatar-fallback {
-  width: 54px;
+  width: 58px;
   aspect-ratio: 1;
   border: 1px solid color-mix(in srgb, var(--accent-2) 36%, var(--line));
   background: color-mix(in srgb, var(--accent-2) 12%, var(--surface));
@@ -1853,8 +1888,10 @@ h3 {
 
 .member-card h4 {
   font-size: 1.08rem;
-  line-height: 1.15;
+  line-height: 1.2;
   overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .member-team,
@@ -2117,6 +2154,35 @@ h3 {
   .member-role-head {
     align-items: start;
     flex-direction: column;
+  }
+
+  .member-grid {
+    gap: 14px;
+  }
+
+  .member-card {
+    padding: 18px;
+    min-height: auto;
+  }
+
+  .member-card-layout {
+    gap: 14px;
+  }
+
+  .member-profile {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-align: left;
+  }
+
+  .member-profile h4 {
+    justify-content: flex-start;
+    width: auto;
+    min-width: 0;
+    min-height: 58px;
+    max-width: calc(100% - 72px);
   }
 }
 
