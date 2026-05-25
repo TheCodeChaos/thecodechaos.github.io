@@ -39,16 +39,12 @@ body {
   color: var(--ink);
   background:
     linear-gradient(160deg, var(--bg), var(--bg-alt) 55%, var(--bg)),
-    radial-gradient(
-      circle at 17% 8%,
+    radial-gradient(circle at 17% 8%,
       color-mix(in srgb, var(--accent-2) 16%, transparent),
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 83% 22%,
+      transparent 34%),
+    radial-gradient(circle at 83% 22%,
       color-mix(in srgb, var(--accent) 18%, transparent),
-      transparent 31%
-    );
+      transparent 31%);
   overflow-x: hidden;
 }
 
@@ -243,7 +239,7 @@ a {
   top: 21px;
 }
 
-.menu-bar + .menu-bar {
+.menu-bar+.menu-bar {
   margin-top: 0;
 }
 
@@ -429,7 +425,7 @@ body.search-open {
   line-height: 1.5;
 }
 
-.site-main > :last-child {
+.site-main> :last-child {
   border-bottom: 0;
 }
 
@@ -447,12 +443,12 @@ body.search-open {
   text-align: center;
 }
 
-.page-hero > *,
-.page-split > *,
-.page-content > *,
-.page-list > *,
-.page-cta > *,
-.blog-list > * {
+.page-hero>*,
+.page-split>*,
+.page-content>*,
+.page-list>*,
+.page-cta>*,
+.blog-list>* {
   width: min(100%, var(--content-max));
 }
 
@@ -526,11 +522,9 @@ h3 {
 }
 
 .page-strip {
-  background: linear-gradient(
-    90deg,
-    var(--strip),
-    color-mix(in srgb, var(--accent-2) 12%, transparent)
-  );
+  background: linear-gradient(90deg,
+      var(--strip),
+      color-mix(in srgb, var(--accent-2) 12%, transparent));
   padding: 16px 0;
   overflow: hidden;
 }
@@ -718,11 +712,9 @@ h3 {
 }
 
 .landing-luxury {
-  background: linear-gradient(
-    160deg,
-    color-mix(in srgb, var(--surface) 54%, transparent),
-    transparent
-  );
+  background: linear-gradient(160deg,
+      color-mix(in srgb, var(--surface) 54%, transparent),
+      transparent);
 }
 
 .luxury-lines {
@@ -760,11 +752,9 @@ h3 {
 }
 
 .landing-playful {
-  background: linear-gradient(
-    150deg,
-    color-mix(in srgb, var(--accent) 10%, transparent),
-    color-mix(in srgb, var(--accent-2) 11%, transparent)
-  );
+  background: linear-gradient(150deg,
+      color-mix(in srgb, var(--accent) 10%, transparent),
+      color-mix(in srgb, var(--accent-2) 11%, transparent));
 }
 
 .playful-fx {
@@ -837,11 +827,9 @@ h3 {
   gap: 14px;
   text-align: center;
   background:
-    linear-gradient(
-      125deg,
+    linear-gradient(125deg,
       color-mix(in srgb, var(--accent) 11%, transparent),
-      transparent 36%
-    ),
+      transparent 36%),
     color-mix(in srgb, var(--surface) 45%, transparent);
 }
 
@@ -908,16 +896,12 @@ h3 {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(
-      45deg,
+    linear-gradient(45deg,
       color-mix(in srgb, var(--accent) 26%, transparent) 2px,
-      transparent 2px
-    ),
-    linear-gradient(
-      -45deg,
+      transparent 2px),
+    linear-gradient(-45deg,
       color-mix(in srgb, var(--accent) 20%, transparent) 2px,
-      transparent 2px
-    );
+      transparent 2px);
   background-size: 34px 34px;
   opacity: 0.4;
 }
@@ -966,12 +950,10 @@ h3 {
 .matsuri-beam {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    110deg,
-    transparent 22%,
-    color-mix(in srgb, var(--accent-2) 24%, transparent),
-    transparent 78%
-  );
+  background: linear-gradient(110deg,
+      transparent 22%,
+      color-mix(in srgb, var(--accent-2) 24%, transparent),
+      transparent 78%);
   opacity: 0.55;
 }
 
@@ -995,11 +977,9 @@ h3 {
   gap: 14px;
   text-align: center;
   background:
-    linear-gradient(
-      145deg,
+    linear-gradient(145deg,
       color-mix(in srgb, var(--accent-2) 14%, transparent),
-      transparent 36%
-    ),
+      transparent 36%),
     color-mix(in srgb, var(--surface) 45%, transparent);
 }
 
@@ -1261,7 +1241,7 @@ h3 {
   gap: 24px;
 }
 
-.page-split > div {
+.page-split>div {
   max-width: 520px;
   justify-self: center;
 }
@@ -1615,15 +1595,14 @@ h3 {
 }
 
 .members-directory {
-  padding: clamp(18px, 4vw, 44px) clamp(14px, 5vw, 60px)
-    clamp(28px, 6vw, 68px);
+  padding: clamp(18px, 4vw, 44px) clamp(14px, 5vw, 60px) clamp(28px, 6vw, 68px);
   border-bottom: 1px solid var(--line);
   display: grid;
   justify-items: center;
   gap: 16px;
 }
 
-.members-directory > * {
+.members-directory>* {
   width: min(100%, var(--content-max));
 }
 
@@ -1830,11 +1809,30 @@ h3 {
   text-transform: uppercase;
 }
 
-.category-badge--leadership  { background: #ede9fe; color: #6d28d9; }
-.category-badge--technical    { background: #ccfbf1; color: #0f766e; }
-.category-badge--operations   { background: #fef3c7; color: #b45309; }
-.category-badge--outreach     { background: #dbeafe; color: #1d4ed8; }
-.category-badge--creative     { background: #fce7f3; color: #be185d; }
+.category-badge--leadership {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.category-badge--technical {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.category-badge--operations {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.category-badge--outreach {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.category-badge--creative {
+  background: #fce7f3;
+  color: #be185d;
+}
 
 .member-social-icons {
   display: flex;
@@ -1866,26 +1864,35 @@ h3 {
 .member-name-link {
   display: -webkit-box;
   overflow: hidden;
-  text-decoration: none;
   color: inherit;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  transition: color 0.2s, transform 0.2s;
 }
 
 .member-name-link:hover {
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
+  color: var(--accent);
 }
+
+
 
 .member-avatar {
   width: 58px;
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--accent-2) 36%, var(--line));
+  border: 1.5px solid color-mix(in srgb, var(--accent-2) 36%, var(--line));
   object-fit: cover;
   background: color-mix(in srgb, var(--accent-2) 12%, var(--surface));
+  transition:
+    border-color 0.3s ease,
+    border-width 0.3s ease,
+    transform 0.3s ease;
+}
+
+.member-avatar-link:hover .member-avatar {
+  border-color: var(--accent);
+  border-width: 1.5px;
+  transform: scale(1.06);
 }
 
 .member-avatar-fallback {
@@ -1964,12 +1971,14 @@ h3 {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-100%);
   }
 }
 
 @media (max-width: 920px) {
+
   .landing-hero-grid,
   .home-hero-grid,
   .home-mosaic,
@@ -2214,6 +2223,6 @@ h3 {
   }
 }
 
-.site-main > :last-child {
+.site-main> :last-child {
   border-bottom: 0 !important;
 }
