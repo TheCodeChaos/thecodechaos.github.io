@@ -39,16 +39,12 @@ body {
   color: var(--ink);
   background:
     linear-gradient(160deg, var(--bg), var(--bg-alt) 55%, var(--bg)),
-    radial-gradient(
-      circle at 17% 8%,
+    radial-gradient(circle at 17% 8%,
       color-mix(in srgb, var(--accent-2) 16%, transparent),
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 83% 22%,
+      transparent 34%),
+    radial-gradient(circle at 83% 22%,
       color-mix(in srgb, var(--accent) 18%, transparent),
-      transparent 31%
-    );
+      transparent 31%);
   overflow-x: hidden;
 }
 
@@ -147,6 +143,9 @@ a {
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: Manrope, 'Segoe UI', sans-serif;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -240,7 +239,7 @@ a {
   top: 21px;
 }
 
-.menu-bar + .menu-bar {
+.menu-bar+.menu-bar {
   margin-top: 0;
 }
 
@@ -426,7 +425,7 @@ body.search-open {
   line-height: 1.5;
 }
 
-.site-main > :last-child {
+.site-main> :last-child {
   border-bottom: 0;
 }
 
@@ -444,12 +443,12 @@ body.search-open {
   text-align: center;
 }
 
-.page-hero > *,
-.page-split > *,
-.page-content > *,
-.page-list > *,
-.page-cta > *,
-.blog-list > * {
+.page-hero>*,
+.page-split>*,
+.page-content>*,
+.page-list>*,
+.page-cta>*,
+.blog-list>* {
   width: min(100%, var(--content-max));
 }
 
@@ -523,11 +522,9 @@ h3 {
 }
 
 .page-strip {
-  background: linear-gradient(
-    90deg,
-    var(--strip),
-    color-mix(in srgb, var(--accent-2) 12%, transparent)
-  );
+  background: linear-gradient(90deg,
+      var(--strip),
+      color-mix(in srgb, var(--accent-2) 12%, transparent));
   padding: 16px 0;
   overflow: hidden;
 }
@@ -715,11 +712,9 @@ h3 {
 }
 
 .landing-luxury {
-  background: linear-gradient(
-    160deg,
-    color-mix(in srgb, var(--surface) 54%, transparent),
-    transparent
-  );
+  background: linear-gradient(160deg,
+      color-mix(in srgb, var(--surface) 54%, transparent),
+      transparent);
 }
 
 .luxury-lines {
@@ -757,11 +752,9 @@ h3 {
 }
 
 .landing-playful {
-  background: linear-gradient(
-    150deg,
-    color-mix(in srgb, var(--accent) 10%, transparent),
-    color-mix(in srgb, var(--accent-2) 11%, transparent)
-  );
+  background: linear-gradient(150deg,
+      color-mix(in srgb, var(--accent) 10%, transparent),
+      color-mix(in srgb, var(--accent-2) 11%, transparent));
 }
 
 .playful-fx {
@@ -834,11 +827,9 @@ h3 {
   gap: 14px;
   text-align: center;
   background:
-    linear-gradient(
-      125deg,
+    linear-gradient(125deg,
       color-mix(in srgb, var(--accent) 11%, transparent),
-      transparent 36%
-    ),
+      transparent 36%),
     color-mix(in srgb, var(--surface) 45%, transparent);
 }
 
@@ -905,16 +896,12 @@ h3 {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(
-      45deg,
+    linear-gradient(45deg,
       color-mix(in srgb, var(--accent) 26%, transparent) 2px,
-      transparent 2px
-    ),
-    linear-gradient(
-      -45deg,
+      transparent 2px),
+    linear-gradient(-45deg,
       color-mix(in srgb, var(--accent) 20%, transparent) 2px,
-      transparent 2px
-    );
+      transparent 2px);
   background-size: 34px 34px;
   opacity: 0.4;
 }
@@ -963,12 +950,10 @@ h3 {
 .matsuri-beam {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    110deg,
-    transparent 22%,
-    color-mix(in srgb, var(--accent-2) 24%, transparent),
-    transparent 78%
-  );
+  background: linear-gradient(110deg,
+      transparent 22%,
+      color-mix(in srgb, var(--accent-2) 24%, transparent),
+      transparent 78%);
   opacity: 0.55;
 }
 
@@ -992,11 +977,9 @@ h3 {
   gap: 14px;
   text-align: center;
   background:
-    linear-gradient(
-      145deg,
+    linear-gradient(145deg,
       color-mix(in srgb, var(--accent-2) 14%, transparent),
-      transparent 36%
-    ),
+      transparent 36%),
     color-mix(in srgb, var(--surface) 45%, transparent);
 }
 
@@ -1258,7 +1241,7 @@ h3 {
   gap: 24px;
 }
 
-.page-split > div {
+.page-split>div {
   max-width: 520px;
   justify-self: center;
 }
@@ -1587,16 +1570,472 @@ h3 {
   justify-content: center;
 }
 
+.members-hero .lead {
+  max-width: 72ch;
+}
+
+.members-summary {
+  width: min(100%, 680px);
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.members-summary span {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  padding: 8px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.members-directory {
+  padding: clamp(18px, 4vw, 44px) clamp(14px, 5vw, 60px) clamp(28px, 6vw, 68px);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
+.members-section {
+  padding: clamp(18px, 4vw, 44px) clamp(14px, 5vw, 60px) clamp(28px, 6vw, 68px);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  justify-items: center;
+  gap: 32px;
+}
+
+.members-directory>* {
+  width: min(100%, var(--content-max));
+}
+
+/* ── Group sections ── */
+.member-group-section {
+  width: min(100%, var(--content-max));
+  display: grid;
+  gap: 20px;
+}
+
+.member-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.member-group-header h2 {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ── Member / Founder badge ── */
+.member-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.member-badge--founder {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.member-badge--member {
+  background: color-mix(in srgb, var(--line) 40%, transparent);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+
+
+.members-directory-head {
+  text-align: left;
+}
+
+.members-directory-head h2,
+.member-role-head h3,
+.member-card h4 {
+  font-family: Manrope, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.members-directory-head h2 {
+  margin-top: 10px;
+  font-size: clamp(1.8rem, 4.5vw, 3.3rem);
+}
+
+.member-role-group {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.member-role-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+  margin-top: 12px;
+}
+
+.member-role-head h3 {
+  font-size: clamp(1.25rem, 3vw, 2rem);
+}
+
+.member-role-head .meta {
+  margin: 0;
+}
+
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  grid-auto-rows: 1fr;
+  gap: clamp(14px, 2vw, 18px);
+  align-items: stretch;
+}
+
+.member-card {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 84%, transparent);
+  padding: clamp(20px, 3vw, 26px);
+  display: grid;
+  gap: 0;
+  text-align: left;
+  align-content: stretch;
+  min-width: 0;
+  min-height: 238px;
+  height: 100%;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.member-card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 14px 34px color-mix(in srgb, #000 28%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent) 16%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 72%, var(--line));
+}
+
+.member-card-layout {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 16px;
+  align-items: center;
+  height: 100%;
+  min-width: 0;
+}
+
+.member-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+}
+
+.member-profile h4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+  min-height: calc(1.2em * 2);
+}
+
+.member-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: auto;
+  padding-top: 4px;
+  align-self: end;
+  min-height: 28px;
+  max-height: 50px;
+  overflow: hidden;
+}
+
+.member-avatar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.member-avatar-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Category legend ── */
+.category-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-bottom: 2px;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ── Category filter bar ── */
+.category-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.category-btn {
+  min-height: 34px;
+  padding: 6px 15px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.category-btn:hover {
+  border-color: var(--accent);
+  color: var(--fg);
+}
+
+.category-btn.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ── Category badges on cards ── */
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 18px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.category-badge--leadership {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.category-badge--technical {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.category-badge--operations {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.category-badge--outreach {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.category-badge--creative {
+  background: #fce7f3;
+  color: #be185d;
+}
+
+.member-social-icons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
+}
+
+.member-social-icons a {
+  color: var(--muted);
+  transition:
+    color 0.2s,
+    transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  border-radius: 999px;
+}
+
+.member-social-icons a:hover {
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.member-name-link {
+  display: -webkit-box;
+  overflow: hidden;
+  color: inherit;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.member-name-link:hover {
+  color: var(--accent);
+}
+
+
+
+.member-avatar {
+  width: 58px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--accent-2) 36%, var(--line));
+  object-fit: cover;
+  background: color-mix(in srgb, var(--accent-2) 12%, var(--surface));
+  transition:
+    border-color 0.3s ease,
+    border-width 0.3s ease,
+    transform 0.3s ease;
+}
+
+.member-avatar-link:hover .member-avatar {
+  border-color: var(--accent);
+  border-width: 1.5px;
+  transform: scale(1.06);
+}
+
+.member-avatar-fallback {
+  width: 58px;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--accent-2) 36%, var(--line));
+  background: color-mix(in srgb, var(--accent-2) 12%, var(--surface));
+  display: grid;
+  place-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.84rem;
+  letter-spacing: 0.06em;
+  color: var(--accent-2);
+}
+
+.member-card h4 {
+  font-size: 1.08rem;
+  line-height: 1.2;
+  max-height: calc(1.2em * 2);
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.member-team,
+.member-bio {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.member-team {
+  margin-top: 4px;
+  font-size: 0.82rem;
+}
+
+.member-skills {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.member-skills li {
+  border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+  padding: 6px 8px;
+  font-size: 0.74rem;
+  color: var(--muted);
+  line-height: 1;
+}
+
+.member-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+.member-links a {
+  color: var(--accent-2);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+}
+
+.member-links a:hover {
+  border-color: currentColor;
+}
+
 @keyframes marquee-loop {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-100%);
   }
 }
 
 @media (max-width: 920px) {
+
   .landing-hero-grid,
   .home-hero-grid,
   .home-mosaic,
@@ -1615,7 +2054,8 @@ h3 {
   }
 
   .about-principles .principle-grid,
-  .join-step-grid {
+  .join-step-grid,
+  .member-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1793,6 +2233,42 @@ h3 {
   .site-footer {
     text-align: center;
   }
+
+  .member-role-head {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .member-grid {
+    gap: 14px;
+  }
+
+  .member-card {
+    padding: 18px;
+    min-height: 188px;
+  }
+
+  .member-card-layout {
+    grid-template-rows: auto auto;
+  }
+
+  .member-card-layout {
+    gap: 14px;
+  }
+
+  .member-profile {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .member-profile h4 {
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1802,6 +2278,6 @@ h3 {
   }
 }
 
-.site-main > :last-child {
+.site-main> :last-child {
   border-bottom: 0 !important;
 }

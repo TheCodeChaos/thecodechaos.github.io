@@ -1,6 +1,7 @@
 import type {
   GenericPageConfig,
   HomePageConfig,
+  MembersPageConfig,
   NavLink,
   Site,
   SocialLink,
@@ -19,6 +20,7 @@ export const SITE: Site = {
 export const NAV_LINKS: NavLink[] = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
+  { href: '/members', label: 'Members' },
   { href: '/blog', label: 'Blog' },
   { href: '/join', label: 'Join' },
 ];
@@ -134,6 +136,18 @@ export const JOIN_STEPS = [
   'Pick your first track and sprint team',
   'Ship one mini project in your first month',
 ];
+
+export const MEMBERS_PAGE: MembersPageConfig = {
+  title: 'CodeChaos Members',
+  description:
+    'The official directory of CodeChaos maintainers and contributors.',
+  eyebrow: 'Our Team',
+  heading: 'MEET THE TEAM',
+  lead: 'The people behind building, maintaining, and growing CodeChaos.',
+  emptyState: 'No members are currently listed.',
+};
+
+export const MEMBER_ROLE_ORDER = ['Maintainer', 'Contributor'];
 
 export const BLOG_PAGE = {
   title: 'CodeChaos Blog',

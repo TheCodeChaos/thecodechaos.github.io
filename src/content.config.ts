@@ -17,4 +17,20 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const members = defineCollection({
+  loader: glob({
+    pattern: '**/*.{json,yaml,yml}',
+    base: './src/content/members',
+  }),
+  schema: z.object({
+    name: z.string(),
+    github: z.string().url().optional(),
+    linkedin: z.string().url().optional(),
+    instagram: z.string().url().optional(),
+    group: z.string().optional(),
+    badge: z.string().optional(),
+    order: z.number().default(100),
+  }),
+});
+
+export const collections = { blog, members };
