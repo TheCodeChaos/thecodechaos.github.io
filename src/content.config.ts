@@ -24,12 +24,15 @@ const members = defineCollection({
   }),
   schema: z.object({
     name: z.string(),
-    github: z.string().url().optional(),
-    linkedin: z.string().url().optional(),
-    instagram: z.string().url().optional(),
+    github: z.string().optional(),
+    linkedin: z.string().optional(),
+    instagram: z.string().optional(),
+    avatar: z.string().optional(),
     group: z.string().optional(),
     badge: z.string().optional(),
+    categories: z.array(z.string()).default([]),
     order: z.number().default(100),
+    draft: z.boolean().default(false),
   }),
 });
 
