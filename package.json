@@ -16,7 +16,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "check": "npm run lint && npm run format:check && npm run typecheck && npm run build"
+    "validate:static": "npm run format:check && npm run lint && npm run typecheck",
+    "validate": "npm run validate:static && npm run build"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",

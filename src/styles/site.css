@@ -39,12 +39,16 @@ body {
   color: var(--ink);
   background:
     linear-gradient(160deg, var(--bg), var(--bg-alt) 55%, var(--bg)),
-    radial-gradient(circle at 17% 8%,
+    radial-gradient(
+      circle at 17% 8%,
       color-mix(in srgb, var(--accent-2) 16%, transparent),
-      transparent 34%),
-    radial-gradient(circle at 83% 22%,
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 83% 22%,
       color-mix(in srgb, var(--accent) 18%, transparent),
-      transparent 31%);
+      transparent 31%
+    );
   overflow-x: hidden;
 }
 
@@ -239,7 +243,7 @@ a {
   top: 21px;
 }
 
-.menu-bar+.menu-bar {
+.menu-bar + .menu-bar {
   margin-top: 0;
 }
 
@@ -425,7 +429,7 @@ body.search-open {
   line-height: 1.5;
 }
 
-.site-main> :last-child {
+.site-main > :last-child {
   border-bottom: 0;
 }
 
@@ -443,12 +447,12 @@ body.search-open {
   text-align: center;
 }
 
-.page-hero>*,
-.page-split>*,
-.page-content>*,
-.page-list>*,
-.page-cta>*,
-.blog-list>* {
+.page-hero > *,
+.page-split > *,
+.page-content > *,
+.page-list > *,
+.page-cta > *,
+.blog-list > * {
   width: min(100%, var(--content-max));
 }
 
@@ -522,9 +526,11 @@ h3 {
 }
 
 .page-strip {
-  background: linear-gradient(90deg,
-      var(--strip),
-      color-mix(in srgb, var(--accent-2) 12%, transparent));
+  background: linear-gradient(
+    90deg,
+    var(--strip),
+    color-mix(in srgb, var(--accent-2) 12%, transparent)
+  );
   padding: 16px 0;
   overflow: hidden;
 }
@@ -712,9 +718,11 @@ h3 {
 }
 
 .landing-luxury {
-  background: linear-gradient(160deg,
-      color-mix(in srgb, var(--surface) 54%, transparent),
-      transparent);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--surface) 54%, transparent),
+    transparent
+  );
 }
 
 .luxury-lines {
@@ -752,9 +760,11 @@ h3 {
 }
 
 .landing-playful {
-  background: linear-gradient(150deg,
-      color-mix(in srgb, var(--accent) 10%, transparent),
-      color-mix(in srgb, var(--accent-2) 11%, transparent));
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--accent) 10%, transparent),
+    color-mix(in srgb, var(--accent-2) 11%, transparent)
+  );
 }
 
 .playful-fx {
@@ -827,9 +837,11 @@ h3 {
   gap: 14px;
   text-align: center;
   background:
-    linear-gradient(125deg,
+    linear-gradient(
+      125deg,
       color-mix(in srgb, var(--accent) 11%, transparent),
-      transparent 36%),
+      transparent 36%
+    ),
     color-mix(in srgb, var(--surface) 45%, transparent);
 }
 
@@ -896,12 +908,16 @@ h3 {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(45deg,
+    linear-gradient(
+      45deg,
       color-mix(in srgb, var(--accent) 26%, transparent) 2px,
-      transparent 2px),
-    linear-gradient(-45deg,
+      transparent 2px
+    ),
+    linear-gradient(
+      -45deg,
       color-mix(in srgb, var(--accent) 20%, transparent) 2px,
-      transparent 2px);
+      transparent 2px
+    );
   background-size: 34px 34px;
   opacity: 0.4;
 }
@@ -950,10 +966,12 @@ h3 {
 .matsuri-beam {
   position: absolute;
   inset: 0;
-  background: linear-gradient(110deg,
-      transparent 22%,
-      color-mix(in srgb, var(--accent-2) 24%, transparent),
-      transparent 78%);
+  background: linear-gradient(
+    110deg,
+    transparent 22%,
+    color-mix(in srgb, var(--accent-2) 24%, transparent),
+    transparent 78%
+  );
   opacity: 0.55;
 }
 
@@ -977,9 +995,11 @@ h3 {
   gap: 14px;
   text-align: center;
   background:
-    linear-gradient(145deg,
+    linear-gradient(
+      145deg,
       color-mix(in srgb, var(--accent-2) 14%, transparent),
-      transparent 36%),
+      transparent 36%
+    ),
     color-mix(in srgb, var(--surface) 45%, transparent);
 }
 
@@ -1241,7 +1261,7 @@ h3 {
   gap: 24px;
 }
 
-.page-split>div {
+.page-split > div {
   max-width: 520px;
   justify-self: center;
 }
@@ -1610,7 +1630,7 @@ h3 {
   gap: 32px;
 }
 
-.members-directory>* {
+.members-directory > * {
   width: min(100%, var(--content-max));
 }
 
@@ -1661,7 +1681,6 @@ h3 {
   color: var(--muted);
   border: 1px solid var(--line);
 }
-
 
 .members-directory-head {
   text-align: left;
@@ -1836,7 +1855,10 @@ h3 {
   font-size: 0.82rem;
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
 }
 
 .category-btn:hover {
@@ -1924,14 +1946,14 @@ h3 {
   color: inherit;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  transition: color 0.2s, transform 0.2s;
+  transition:
+    color 0.2s,
+    transform 0.2s;
 }
 
 .member-name-link:hover {
   color: var(--accent);
 }
-
-
 
 .member-avatar {
   width: 58px;
@@ -2035,7 +2057,6 @@ h3 {
 }
 
 @media (max-width: 920px) {
-
   .landing-hero-grid,
   .home-hero-grid,
   .home-mosaic,
@@ -2278,6 +2299,6 @@ h3 {
   }
 }
 
-.site-main> :last-child {
+.site-main > :last-child {
   border-bottom: 0 !important;
 }

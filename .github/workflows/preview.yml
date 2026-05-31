@@ -1,8 +1,20 @@
-name: PR Preview Workflow
+# We use pull_request_target so that pull requests from forks (external
+# contributors and bots) also get a deployed preview. This event runs in the
+# base repository's context with a write token, which means it executes the
+# PR's code (npm ci and build) with that token. We accept this trade-off
+# knowingly: maintainers review every pull request from forks and bots before
+# and while it runs here, and the token scope is limited to what the preview
+# deploy needs. If the risk profile changes, we will move to a manual-approval
+# environment gate or a split build-then-deploy flow.
+name: PR Preview
 
 on:
   pull_request_target:
-    types: [opened, synchronize, closed]
+    types: [opened, synchronize, reopened, closed]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -10,28 +22,34 @@ permissions:
 
 jobs:
   build-and-preview:
-    if: github.event.action == 'opened' || github.event.action == 'synchronize'
+    if: github.event.action == 'opened' || github.event.action == 'synchronize' || github.event.action == 'reopened'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout PR branch
+      - name: Checkout PR code
         uses: actions/checkout@v6
         with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 22
-          cache: npm
+          node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build preview website
+      - name: Quality check
+        run: npm run validate:static
+
+      - name: Build for preview
         env:
           BASE_PATH: /pr-previews/${{ github.event.pull_request.number }}/
         run: npm run build
+
+      - name: Disable Jekyll
+        run: touch dist/.nojekyll
 
       - name: Deploy preview to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
@@ -39,42 +57,40 @@ jobs:
           branch: gh-pages
           folder: dist
           target-folder: pr-previews/${{ github.event.pull_request.number }}
-          clean: false
-          commit-message: Deploy preview for PR #${{ github.event.pull_request.number }}
+          clean: true
+          clean-exclude: |
+            pr-previews
+          commit-message: 'Deploy preview for PR ${{ github.event.pull_request.number }}'
 
-      - name: Comment preview URL
-        uses: thollander/actions-comment-pull-request@v2
+      - name: Comment with preview URL
+        uses: thollander/actions-comment-pull-request@v3
         with:
-          comment_tag: preview-url-comment
           message: |
             <!-- preview-url-comment -->
-            Preview URL: https://${{ github.repository_owner }}.github.io/pr-previews/${{ github.event.pull_request.number }}/
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            Preview deployed for this pull request.
 
-  delete-preview-directory:
+            **<https://${{ github.repository_owner }}.github.io/pr-previews/${{ github.event.pull_request.number }}/>**
+
+            Latest commit: ${{ github.event.pull_request.head.sha }}
+          comment-tag: preview-url-comment
+
+  cleanup-preview:
     if: github.event.action == 'closed'
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout gh-pages branch
         uses: actions/checkout@v6
         with:
           ref: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Remove preview directory
+      - name: Remove PR preview
         run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          PREVIEW_DIR="pr-previews/${PR_NUMBER}"
-
-          if [ -d "${PREVIEW_DIR}" ]; then
-            git config --global user.name "github-actions[bot]"
-            git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            git pull origin gh-pages
-            rm -rf "${PREVIEW_DIR}"
-            git add .
-            git diff --staged --quiet || git commit -m "Remove preview for PR #${PR_NUMBER}"
+          if [ -d "pr-previews/${{ github.event.pull_request.number }}" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git rm -rf "pr-previews/${{ github.event.pull_request.number }}"
+            git commit -m "Remove preview for PR ${{ github.event.pull_request.number }}"
             git push
           else
-            echo "Preview directory ${PREVIEW_DIR} not found, skipping"
+            echo "Preview directory not found, skipping."
           fi

@@ -9,30 +9,36 @@ on:
 permissions:
   contents: write
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
-          cache: npm
+          node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint and typecheck
-        run: npm run lint && npm run typecheck
+      - name: Quality check and build
+        run: npm run validate
 
-      - name: Build website
-        run: npm run build
+      - name: Disable Jekyll
+        run: touch dist/.nojekyll
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
-          publish_branch: gh-pages
+          branch: gh-pages
+          folder: dist
+          clean: true
+          clean-exclude: |
+            pr-previews
+          commit-message: 'Deploy production from ${{ github.sha }}'
