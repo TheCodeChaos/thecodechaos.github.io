@@ -1,4 +1,4 @@
-import { glob } from 'astro/loaders';
+import { glob, file } from 'astro/loaders';
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 
@@ -18,19 +18,16 @@ const blog = defineCollection({
 });
 
 const members = defineCollection({
-  loader: glob({
-    pattern: '**/*.{json,yaml,yml}',
-    base: './src/content/members',
-  }),
+  loader: file('src/data/members.yaml'),
   schema: z.object({
     name: z.string(),
     github: z.string().optional(),
     linkedin: z.string().optional(),
     instagram: z.string().optional(),
+    website: z.string().optional(),
     avatar: z.string().optional(),
     group: z.string().optional(),
     badge: z.string().optional(),
-    categories: z.array(z.string()).default([]),
     order: z.number().default(100),
     draft: z.boolean().default(false),
   }),
