@@ -1,0 +1,22 @@
+- id: shravanngoswamii
+  name: Shravan Goswami
+  role: Founder
+  github: https://github.com/shravanngoswamii
+  linkedin: https://linkedin.com/in/shravangoswami
+  website: https://shravangoswami.com
+  order: 1
+
+- id: jitendravjh
+  name: Jitendra Verma
+  role: Founder
+  github: https://github.com/jitendravjh
+  linkedin: https://linkedin.com/in/jitendravjh
+  website: https://jitendravjh.github.io
+  order: 2
+
+- id: jixiicode
+  name: Jiya Raisinghani
+  role: Member
+  github: https://github.com/jixiicode
+  linkedin: https://www.linkedin.com/in/jiya-raisinghani-561698375/
+  order: 3

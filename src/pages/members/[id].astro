@@ -1,0 +1,84 @@
+---
+import { getCollection } from 'astro:content';
+import { SITE } from '../../config';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import MemberSocials from '../../components/MemberSocials.astro';
+import { avatarUrl, initials } from '../../utils/members';
+import { withBase } from '../../utils/base';
+
+export async function getStaticPaths() {
+  const members = await getCollection('members', ({ data }) => !data.draft);
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+  return members.map((member) => ({
+    params: { id: member.id },
+    props: {
+      member,
+      posts: posts
+        .filter((post) => post.data.author.id === member.id)
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+
+const { member, posts } = Astro.props;
+const description =
+  member.data.bio ??
+  `${member.data.name}, ${member.data.role} at ${SITE.title}.`;
+---
+
+<SiteLayout
+  title={`${member.data.name} | ${SITE.title}`}
+  description={description}
+>
+  <section class="page-hero member-hero">
+    <a href={withBase('/members/')} class="member-back">&larr; All members</a>
+
+    <div class="member-hero-profile">
+      <img
+        class="member-avatar member-avatar-lg"
+        src={avatarUrl(member)}
+        alt={`${member.data.name} avatar`}
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+      />
+      <div
+        class="member-avatar member-avatar-lg member-avatar-fallback"
+        style="display: none;"
+      >
+        {initials(member.data.name)}
+      </div>
+
+      <div class="member-hero-meta">
+        <h1>{member.data.name}</h1>
+        <span
+          class={`member-badge member-badge--${member.data.role.toLowerCase()}`}
+        >
+          {member.data.role}
+        </span>
+        {member.data.bio && <p class="lead">{member.data.bio}</p>}
+        <MemberSocials member={member} />
+      </div>
+    </div>
+  </section>
+
+  <section class="member-posts">
+    <h2>Posts by {member.data.name}</h2>
+    {
+      posts.length === 0 ? (
+        <p class="lead">No posts yet.</p>
+      ) : (
+        <div class="blog-minimal">
+          {posts.map((post) => (
+            <article class="blog-row">
+              <p class="meta">{post.data.pubDate.toLocaleDateString()}</p>
+              <h3>
+                <a href={withBase(`/blog/${post.id}/`)}>{post.data.title}</a>
+              </h3>
+              <p class="blog-excerpt">{post.data.description}</p>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</SiteLayout>

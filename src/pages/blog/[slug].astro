@@ -1,7 +1,8 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import { SITE } from '../../config';
 import SiteLayout from '../../layouts/SiteLayout.astro';
+import { withBase } from '../../utils/base';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -14,6 +15,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const author = await getEntry(post.data.author);
 ---
 
 <SiteLayout
@@ -24,7 +26,10 @@ const { Content } = await render(post);
     <p class="eyebrow">Blog Post</p>
     <h1>{post.data.title}</h1>
     <p class="meta">
-      {post.data.pubDate.toLocaleDateString()} • {post.data.author}
+      {post.data.pubDate.toLocaleDateString()} •{' '}
+      <a href={withBase(`/members/${author.id}/`)} class="author-link">
+        {author.data.name}
+      </a>
     </p>
   </section>
   <section class="post-body">

@@ -2,7 +2,7 @@
 title: First Open Source PR Guide
 description: A practical path to your first merged contribution.
 pubDate: 2026-03-20
-author: Mentorship Circle
+author: jitendravjh
 tags:
   - open-source
   - guide

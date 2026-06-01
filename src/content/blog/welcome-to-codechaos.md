@@ -2,7 +2,7 @@
 title: Welcome to CodeChaos Blog
 description: Why we started this blog and what students can expect.
 pubDate: 2026-04-01
-author: CodeChaos Core Team
+author: shravanngoswamii
 tags:
   - club
   - onboarding

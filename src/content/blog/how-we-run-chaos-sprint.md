@@ -2,7 +2,7 @@
 title: How We Run Chaos Sprint
 description: The structure behind our 90-minute product build format.
 pubDate: 2026-03-28
-author: Events Team
+author: shravanngoswamii
 tags:
   - events
   - sprint

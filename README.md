@@ -32,46 +32,43 @@ npm install
 npm run dev
 ```
 
-Content lives in `src/content/` — `blog/` for posts and `members/` for the member directory.
+Content lives in `src/content/` — `blog/` for posts and a single `members.yaml` for the team.
 
 ## Validate
 
-Run every quality check in one go before pushing:
+Run the checks (format, lint, types, build) in one go before pushing — `npm run format` auto-fixes formatting:
 
 ```sh
 npm run validate
 ```
 
-This runs, in order:
+## Members
 
-| Check      | Command                |
-| ---------- | ---------------------- |
-| Formatting | `npm run format:check` |
-| Linting    | `npm run lint`         |
-| Types      | `npm run typecheck`    |
-| Build      | `npm run build`        |
+All members live in one file — `src/content/members.yaml`. To add yourself, append an entry:
 
-`npm run format` auto-fixes formatting. `npm run validate:static` runs everything except the build.
-
-## Build
-
-```sh
-npm run build
+```yaml
+- id: your-github-username # unique; used to link your posts
+  name: Your Name
+  role: Member # Founder | Member
+  github: https://github.com/your-github-username # also used for your avatar
+  linkedin: https://linkedin.com/in/your-handle # optional
+  website: https://your-site.com # optional
+  order: 4 # lower shows first
 ```
 
-Output goes to `dist/` (search indexing runs automatically after build via Pagefind). The base path can be set with the `BASE_PATH` env var so the same build deploys under any path.
+Only `id`, `name`, and `role` are required. Each member gets a profile page at `/members/<id>/`. Add a real `github` (drives the avatar) and only include socials you actually have — no empty placeholder links.
 
-## CI & Deploy
+Blog posts link to a member through the `author` field, which must be a member `id`:
 
-- **Code Quality** (`.github/workflows/code-quality.yml`) runs on every push and pull request — type check, lint, format check, build, and a security audit — and posts a pass/fail summary on the PR.
-- **PR Preview** (`.github/workflows/preview.yml`) validates and deploys each pull request to its own preview URL under `/pr-previews/<number>/`.
-- **Deploy** (`.github/workflows/publish.yml`) validates and publishes `dist/` to the `gh-pages` branch on every push to `main`.
+```yaml
+author: your-github-username
+```
 
-A change must pass validation before it can be previewed or deployed.
+The post then appears on that member's profile page, and the author name on the post links back to it.
 
 ## Contributing
 
-Open a pull request — it gets a live preview and a Code Quality report automatically. Please run `npm run validate` locally first so the checks pass on the first try.
+Open a pull request, and run `npm run validate` locally first so the checks pass.
 
 ## License
 

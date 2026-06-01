@@ -8,6 +8,9 @@ import { withBase } from '../../utils/base';
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+const members = await getCollection('members');
+const memberById = new Map(members.map((member) => [member.id, member]));
 ---
 
 <SiteLayout title={BLOG_PAGE.title} description={BLOG_PAGE.description}>
@@ -16,21 +19,34 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
     <h2>{BLOG_PAGE.heading}</h2>
     <div class="blog-minimal">
       {
-        posts.map((post, index) => (
-          <article
-            class="blog-row"
-            data-aos="fade-up"
-            data-aos-delay={Math.min(index * 70, 280)}
-          >
-            <p class="meta">
-              {post.data.pubDate.toLocaleDateString()} • {post.data.author}
-            </p>
-            <h3>
-              <a href={withBase(`/blog/${post.id}/`)}>{post.data.title}</a>
-            </h3>
-            <p class="blog-excerpt">{post.data.description}</p>
-          </article>
-        ))
+        posts.map((post, index) => {
+          const author = memberById.get(post.data.author.id);
+          return (
+            <article
+              class="blog-row"
+              data-aos="fade-up"
+              data-aos-delay={Math.min(index * 70, 280)}
+            >
+              <p class="meta">
+                {post.data.pubDate.toLocaleDateString()} •{' '}
+                {author ? (
+                  <a
+                    href={withBase(`/members/${author.id}/`)}
+                    class="author-link"
+                  >
+                    {author.data.name}
+                  </a>
+                ) : (
+                  post.data.author.id
+                )}
+              </p>
+              <h3>
+                <a href={withBase(`/blog/${post.id}/`)}>{post.data.title}</a>
+              </h3>
+              <p class="blog-excerpt">{post.data.description}</p>
+            </article>
+          );
+        })
       }
     </div>
   </section>
